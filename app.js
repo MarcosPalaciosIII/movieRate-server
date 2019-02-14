@@ -1,39 +1,49 @@
-require('dotenv').config();
-
-const bodyParser   = require('body-parser');
-const cookieParser = require('cookie-parser');
 const express      = require('express');
-const favicon      = require('serve-favicon');
-const hbs          = require('hbs');
-const mongoose     = require('mongoose');
-const logger       = require('morgan');
 const path         = require('path');
-const session    = require("express-session");
-const MongoStore = require('connect-mongo')(session);
-const flash      = require("connect-flash");
-
-
-mongoose
-  .connect('mongodb://localhost/movierate-server', {useNewUrlParser: true})
-  .then(x => {
-    console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`);
-  })
-  .catch(err => {
-    console.error('Error connecting to mongo', err);
-  });
-
-const app_name = require('./package.json').name;
-const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
+const favicon      = require('serve-favicon');
+const logger       = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser   = require('body-parser');
+const hbs          = require('hbs');
+const session      = require("express-session");
+const passport     = require("passport");
+const app_name     = require('./package.json').name;
+const debug        = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
 
 const app = express();
 
-// Middleware Setup
+
+// Load environment variables from the ".env" files
+// (put this before the setupr files since this defines env variables)
+require("dotenv").config();
+
+// run the code that sets up the Mongoose database connection
+require("./config/mongoose-setup");
+// run the code that sets up Passport
+require("./config/passport-setup");
+
+
+
+// mongoose
+//   .connect('mongodb://localhost/movierate-server', {useNewUrlParser: true})
+//   .then(x => {
+//     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`);
+//   })
+//   .catch(err => {
+//     console.error('Error connecting to mongo', err);
+//   });
+
+
+// =============== Middleware Setup ===================
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-// Express View engine setup
+// ====================================================
+
+
+// ============ Express View engine setup =============
 
 app.use(require('node-sass-middleware')({
   src:  path.join(__dirname, 'public'),
@@ -41,12 +51,16 @@ app.use(require('node-sass-middleware')({
   sourceMap: true
 }));
 
+// ====================================================
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
+
+// ===================== Helpers ======================
 
 hbs.registerHelper('ifUndefined', (value, options) => {
   if (arguments.length < 2)
@@ -58,9 +72,11 @@ hbs.registerHelper('ifUndefined', (value, options) => {
   }
 });
 
+// ====================================================
+
 
 // default value for title local
-app.locals.title = 'Express - Generated with IronGenerator';
+app.locals.title = 'MovieRate';
 
 
 // Enable authentication using session + passport
@@ -74,11 +90,14 @@ app.use(flash());
 require('./passport')(app);
 
 
+// ====================== ROUTES =======================
+
 const index = require('./routes/index');
 app.use('/', index);
 
 const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
 
+// ====================================================
 
 module.exports = app;
