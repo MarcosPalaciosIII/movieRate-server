@@ -1,14 +1,17 @@
-const express      = require('express');
-const path         = require('path');
-const favicon      = require('serve-favicon');
-const logger       = require('morgan');
-const cookieParser = require('cookie-parser');
-const bodyParser   = require('body-parser');
-const hbs          = require('hbs');
-const session      = require("express-session");
-const passport     = require("passport");
 const app_name     = require('./package.json').name;
+const bodyParser   = require('body-parser');
+const cookieParser = require('cookie-parser');
+const path         = require('path');
 const debug        = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
+const express      = require('express');
+const favicon      = require('serve-favicon');
+const flash      = require("connect-flash");
+const hbs          = require('hbs');
+const logger       = require('morgan');
+const mongoose     = require('mongoose');
+const session      = require("express-session");
+const MongoStore = require('connect-mongo')(session);
+const passport     = require("passport");
 
 const app = express();
 
@@ -35,6 +38,7 @@ require("./config/passport-setup");
 
 
 // =============== Middleware Setup ===================
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
