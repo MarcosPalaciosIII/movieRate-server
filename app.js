@@ -23,7 +23,7 @@ require("dotenv").config();
 // run the code that sets up the Mongoose database connection
 require("./config/mongoose-setup");
 // run the code that sets up Passport
-require("./config/passport-setup");
+require("./passport")(app);
 
 
 
@@ -61,7 +61,7 @@ app.use(require('node-sass-middleware')({
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'images', 'movieRate.ico')));
 
 
 // ===================== Helpers ======================
@@ -78,6 +78,15 @@ hbs.registerHelper('ifUndefined', (value, options) => {
 
 // ====================================================
 
+app.use((req, res, next) => {
+  // Passport defines "req.user" if the user is logged in
+  // ("req.user" is the result of deserialize)
+    res.locals.currentUser = req.user;
+
+    // call "next()" to tell Express that we've finished
+    // (otherwise your browser will hang)
+    next();
+});
 
 // default value for title local
 app.locals.title = 'MovieRate';
@@ -91,7 +100,7 @@ app.use(session({
   store: new MongoStore( { mongooseConnection: mongoose.connection })
 }));
 app.use(flash());
-require('./passport')(app);
+// require('./passport')(app);
 
 
 // ====================== ROUTES =======================
