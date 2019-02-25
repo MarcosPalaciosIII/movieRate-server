@@ -24,7 +24,8 @@ const userSchema = new Schema({
   email: {
     type: String,
     required: [true, "A valid email address is required"],
-    match: [/.+@.+/, "Email's require an @ sign"]
+    match: [/.+@.+/, "Email's require an @ sign"],
+    unique: true
   },
   // avatar the user can set by url
   avatar: {
