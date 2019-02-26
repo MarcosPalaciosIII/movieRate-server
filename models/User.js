@@ -5,7 +5,7 @@ const Actors   = require('./Actors');
 const PlayList = require('./MoviePlaylist');
 
 const userSchema = new Schema({
-
+// username set to unique so that comments are unique based on user.
   username: {
     type: String,
     required: [true, "Must choose a username"],
@@ -15,10 +15,6 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: [true, "Password is required for an account"]
-  },
-  // additional assurance when checking if a user is logged in
-  loggedIn: {
-    type: Boolean
   },
   // to store the users email
   email: {
@@ -45,6 +41,15 @@ const userSchema = new Schema({
   playlist: {
     type: [{type: Schema.Types.ObjectId}],
     ref: 'PlayList'
+  },
+  // all users set to User role, can only be upgraded to Mediator or Admin by an Admin.
+  role: {
+    type: String,
+    enum: ["User", "Mediator", "Admin"]
+  },
+  // additional assurance when checking if a user is logged in
+  loggedIn: {
+    type: Boolean
   },
   // code created to authenticate user (will be used in future to be able to change password if needed)
   confirmCode: {
