@@ -16,6 +16,8 @@ passport.serializeUser((userFromDb, cb) => {
 //----------------------------------------------
 // gets called EVERY TIME you visit a page on the site while you are logged in
 // (that's so we can potentially personalize all pages)
+
+
 passport.deserializeUser((idFromSession, cb) => {
   // find the user's document by the ID we saved in the session
   UserModel.findById(idFromSession)
