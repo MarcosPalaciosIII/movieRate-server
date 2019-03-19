@@ -6,3 +6,12 @@ body {
 a {
   color: #00B7FF;
 }
+
+.signupForm {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  height: 40vh;
+  width: 30vw;
+}
