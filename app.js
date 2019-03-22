@@ -91,6 +91,8 @@ app.use((req, res, next) => {
 // default value for title local
 app.locals.title = 'MovieRate';
 
+// default value for class set to divs for general body (below nav)
+app.locals.generalBodyCLass = "generalBody";
 
 // Enable authentication using session + passport
 app.use(session({
