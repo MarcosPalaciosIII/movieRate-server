@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
-const Movies   = require('./Movies');
-const Actors   = require('./Actors');
-const PlayList = require('./MoviePlaylist');
+
 
 const userSchema = new Schema({
 // username set to unique so that comments are unique based on user.
