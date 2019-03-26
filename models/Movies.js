@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
-const Actors   = require('./Actors');
-const Comments = require('./Comments');
+
 
 const movieSchema = new Schema({
   title: {
@@ -31,7 +30,7 @@ const movieSchema = new Schema({
   },
   reviews: {
     type: [Schema.Types.ObjectId],
-    ref: 'Comments'
+    ref: 'Comment'
   },
   previewLink: {
     type: [String]
