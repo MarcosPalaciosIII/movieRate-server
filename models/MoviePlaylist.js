@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
 
 
-const playlistSchema = new Schema({
+const playListSchema = new Schema({
   author: {
     type: Schema.Types.ObjectId,
     ref: "User"
@@ -28,5 +28,5 @@ const playlistSchema = new Schema({
   }
 });
 
-const Playlist = mongoose.model('Playlist', movieSchema);
-module.exports = Playlist;
+const PlaylistModel = mongoose.model('Playlist', playListSchema);
+module.exports = PlaylistModel;
