@@ -114,7 +114,7 @@ const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
 
 const movieRoutes = require('./routes/movies');
-app.use('/movie', movieRoutes);
+app.use('/movies', movieRoutes);
 
 const actorRoutes = require('./routes/actors');
 app.use('/actors', actorRoutes);
