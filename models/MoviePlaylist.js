@@ -20,6 +20,9 @@ const playListSchema = new Schema({
   comments: {
     type: [Schema.Types.ObjectId],
     ref: "Comment"
+  },
+  publicPlaylist: {
+    type: Boolean
   }
 }, {
   timestamps: {
