@@ -120,7 +120,7 @@ const actorRoutes = require('./routes/actors');
 app.use('/actors', actorRoutes);
 
 const userRoutes = require('./routes/user');
-app.use('/', userRoutes);
+app.use('/playlists', userRoutes);
 
 // ====================================================
 
