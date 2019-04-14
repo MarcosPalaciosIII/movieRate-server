@@ -46,12 +46,30 @@ nav a:hover {
   text-decoration: none;
 }
 
+nav > div {
+    display: flex;
+    align-items: center;
+    width: 30vw;
+}
+
+nav > div:nth-child(2) {
+    justify-content: center;
+}
+
+nav > div:nth-child(3) {
+    justify-content: flex-end;
+}
+
 a .pageTitle:hover {
   color: #B5B5B5;
 }
 
 #carouselExampleControls > a {
   width: 20px;
+}
+
+.navDropdown {
+  width: 5.5vw;
 }
 
 .dropdown-item:hover {
@@ -111,12 +129,16 @@ a .pageTitle:hover {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  left: 16.8vw;
+  left: 10.8vw;
   position: relative;
-  top: 24vh;
+  top: 34vh;
   transform: rotate(329deg);
   width: 32vw;
-  z-index: 2;
+  z-index: 1;
+}
+
+.headerTitle > h1 {
+  font-size: 2.9rem;
 }
 
 .signupForm {
@@ -126,6 +148,20 @@ a .pageTitle:hover {
   flex-direction: column;
   height: 40vh;
   width: 30vw;
+}
+
+.actorCard {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 12vw;
+  height: 34vh;
+  text-align: center;
+}
+
+.actorCardImg {
+  margin-bottom: 1vh;
+  height: 25vh;
 }
 
 .movieList {
@@ -188,6 +224,10 @@ a .pageTitle:hover {
 .pageNumbers > a {
   color: snow;
   margin-right: 1vw;
+}
+
+.pageNumberInput {
+  display: none;
 }
 
 .currentPage {
@@ -289,6 +329,15 @@ a .pageTitle:hover {
 
 .actorInfo > div {
   width: 40vw;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.actorInfo > div > img {
+  height: 35vh;
+  margin-bottom: 1vh;
 }
 
 .bio {
