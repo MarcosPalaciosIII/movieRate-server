@@ -4,6 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 }, false);
 
+function changeAction(val) {
+  // console.log("value of search form --------------- ", val);
+  $('#searchForm')[0].setAttribute('action', val);
+}
+
+
 $(document).ready(() => {
   $(".carousel-item:nth-child(1)").addClass("active");
 });
