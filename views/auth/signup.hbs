@@ -1,29 +1,31 @@
-<h2>Signup</h2>
+<div class="{{generalBodyCLass}}">
+  <h2>Signup</h2>
 
-<form action="/auth/signup" method="POST" class="signupForm" id="form-container">
-  <label for="username">Username</label>
-  <input id="username" type="text" name="username" placeholder="JonSnow">
+  <form action="/auth/signup" method="POST" class="signupForm" id="form-container">
+    <label for="username">Username</label>
+    <input id="username" type="text" name="username" placeholder="JonSnow">
 
-  <br>
+    <br>
 
-  <label for="email">Email</label>
-  <input id="email" type="text" name="email" placeholder="something@location.com">
+    <label for="email">Email</label>
+    <input id="email" type="text" name="email" placeholder="something@location.com">
 
-  <br>
+    <br>
 
-  <label for="password">Password</label>
-  <input id="password" type="password" name="password" placeholder="Your password">
-  <br>
-  {{#if message }}
+    <label for="password">Password</label>
+    <input id="password" type="password" name="password" placeholder="Your password">
+    <br>
+    {{#if message }}
     <div class="error-message">{{ message }}</div>
-  {{/if}}
+    {{/if}}
 
-  <br>
+    <br>
 
-  <button>Create account</button>
+    <button>Create account</button>
 
-  <p class="account-message">
-    Do you already have an account?
-    <a href="/auth/login">Login</a>
-  </p>
-</form>
+    <p class="account-message">
+      Do you already have an account?
+      <a href="/auth/login">Login</a>
+    </p>
+  </form>
+</div>
