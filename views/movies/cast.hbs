@@ -1,0 +1,17 @@
+<div class="{{generalBodyCLass}}">
+  <a href="/movies/details/{{movieId}}"> <h1 class="pageTitle"> {{pageTitle}} </h1> </a>
+
+
+  <!-- <h3> <span class="contentDescription"> Cast </span> </h3> -->
+  <div class="fullCastList">
+    {{#each cast}}
+      <div>
+        <a href="/actors/details/{{this.id}}"> <img src="{{this.profile_path}}" alt="{{this.name}} image"> </a>
+        <div>
+          <h6> <b> {{this.name}} </b> </h6>
+          <h6> {{this.character}} </h6>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</div>
