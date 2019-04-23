@@ -1,0 +1,47 @@
+<div class="{{generalBodyCLass}}">
+  <h2 class="pageTitle"> {{pageTitle}} </h2>
+  <div class="movieList">
+    {{#each actorList}}
+      <div class="actorCard">
+        <a href="/actors/details/{{this.id}}"> <img class="actorCardImg" src="{{this.profile_path}}" alt="{{this.name}} image"> </a>
+        <h6> {{this.name}} </h6>
+      </div>
+    {{/each}}
+  </div>
+
+  <div class="pageNumbers">
+    {{#if searchQuery}}
+      <a href="{{pageLink}}{{searchQuery}}1"> << 1 | </a>
+      {{#if previousPage}}
+      <a href="{{pageLink}}{{searchQuery}}{{previousPage}}">{{previousPage}}</a>
+      {{/if}}
+      <a href="{{pageLink}}{{searchQuery}}{{page}}"> <span class="currentPage"> {{page}} </span> </a>
+      {{#if nextPageOne}}
+      <a href="{{pageLink}}{{searchQuery}}{{nextPageOne}}">{{nextPageOne}}</a>
+      {{/if}}
+      {{#if nextPageTwo}}
+      <a href="{{pageLink}}{{searchQuery}}{{nextPageTwo}}">{{nextPageTwo}}</a>
+      {{/if}}
+      {{#if nextPageThree}}
+      <a href="{{pageLink}}{{searchQuery}}{{nextPageThree}}">{{nextPageThree}}</a>
+      {{/if}}
+      <a href="{{pageLink}}{{searchQuery}}{{lastPage}}"> | {{lastPage}} >> </a>
+    {{else}}
+      <a href="{{pageLink}}1"> << 1 | </a>
+      {{#if previousPage}}
+      <a href="{{pageLink}}{{previousPage}}">{{previousPage}}</a>
+      {{/if}}
+      <a href="{{pageLink}}{{page}}"> <span class="currentPage"> {{page}} </span> </a>
+      {{#if nextPageOne}}
+      <a href="{{pageLink}}{{nextPageOne}}">{{nextPageOne}}</a>
+      {{/if}}
+      {{#if nextPageTwo}}
+      <a href="{{pageLink}}{{nextPageTwo}}">{{nextPageTwo}}</a>
+      {{/if}}
+      {{#if nextPageThree}}
+      <a href="{{pageLink}}{{nextPageThree}}">{{nextPageThree}}</a>
+      {{/if}}
+      <a href="{{pageLink}}{{lastPage}}"> | {{lastPage}} >> </a>
+    {{/if}}
+  </div>
+</div>
