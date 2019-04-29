@@ -78,15 +78,6 @@ hbs.registerHelper('ifUndefined', (value, options) => {
 
 // ====================================================
 
-app.use((req, res, next) => {
-  // Passport defines "req.user" if the user is logged in
-  // ("req.user" is the result of deserialize)
-    res.locals.currentUser = req.user;
-
-    // call "next()" to tell Express that we've finished
-    // (otherwise your browser will hang)
-    next();
-});
 
 // default value for title local
 app.locals.title = 'MovieRate';
@@ -101,8 +92,22 @@ app.use(session({
   saveUninitialized: true,
   store: new MongoStore( { mongooseConnection: mongoose.connection })
 }));
+
 app.use(flash());
-// require('./passport')(app);
+require('./passport')(app);
+
+
+app.use((req, res, next) => {
+  // console.log("this is the user info after log in ------ ", req.user);
+  
+  // Passport defines "req.user" if the user is logged in
+  // ("req.user" is the result of deserialize)
+  res.locals.currentUser = req.user;
+
+  // call "next()" to tell Express that we've finished
+  // (otherwise your browser will hang)
+  next();
+});
 
 
 // ====================== ROUTES =======================
@@ -120,7 +125,10 @@ const actorRoutes = require('./routes/actors');
 app.use('/actors', actorRoutes);
 
 const userRoutes = require('./routes/user');
-app.use('/playlists', userRoutes);
+app.use('/user', userRoutes);
+
+const playlistRoutes = require('./routes/playlists');
+app.use('/playlists', playlistRoutes);
 
 // ====================================================
 
