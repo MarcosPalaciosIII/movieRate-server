@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+mongoose.plugin(schema => { schema.options.usePushEach = true; });
 const Schema   = mongoose.Schema;
 
 
@@ -23,27 +24,26 @@ const userSchema = new Schema({
   },
   // avatar the user can set by url
   avatar: {
-    type: String
+    type: String,
+    default: "/images/defaultUser.png"
   },
   // keep track of favorite movies that the user has
-  favMovie: {
-    type: [{type: Schema.Types.ObjectId}],
-    ref: 'Movies'
+  favMovies: {
+    type: [{type: Schema.Types.ObjectId, ref: 'Movies'}]
   },
   // keep track of the users favorite actors
   favActors: {
-    type: [{type: Schema.Types.ObjectId}],
-    ref: 'Actors'
+    type: [{type: Schema.Types.ObjectId, ref: 'Actors'}]
   },
   // list of playlist of movies the user wishes to keep track of
-  playlist: {
-    type: [{type: Schema.Types.ObjectId}],
-    ref: 'PlayList'
+  playlists: {
+    type: [{type: Schema.Types.ObjectId, ref: 'Playlist'}]
   },
   // all users set to User role, can only be upgraded to Mediator or Admin by an Admin.
   role: {
     type: String,
-    enum: ["User", "Mediator", "Admin"]
+    enum: ["User", "Mediator", "Admin"],
+    default: 'User'
   },
   // additional assurance when checking if a user is logged in
   loggedIn: {
@@ -56,7 +56,8 @@ const userSchema = new Schema({
   // user can receive a TempBan if too many negative marks which will require review by admin, of PermaBan if too many strikes for negativeMarks (will also require review by admin).
   status: {
     type: String,
-    enum: ["Pending", "Confirmed", "PermaBan", "TempBan"]
+    enum: ["Pending", "Confirmed", "PermaBan", "TempBan"],
+    default: 'Pending'
   },
   // used to keep track of users who get flagged by other users
   negativeMarks: {
@@ -68,13 +69,11 @@ const userSchema = new Schema({
   },
   // keep track of users that report other users to see if ban is legit or just trolling (at which point the user that reported would get a negativeMark)
   reportedBy: {
-    type: [Schema.Types.ObjectId, Number],
-    ref: 'User'
+      type: [{type: Schema.Types.ObjectId, ref: 'User'}, Number]
   },
   // to also keep track of which users the currentUser is reporting to establish if account should be flagged for trolling (which would result in TempBan or PermaBan)
   reported: {
-    type: [Schema.Types.ObjectId, Number],
-    ref: 'User'
+    type: [{type: Schema.Types.ObjectId, ref: 'User'}, Number]
   }
 }, {
   timestamps: {

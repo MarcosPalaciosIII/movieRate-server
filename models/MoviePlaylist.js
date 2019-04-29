@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+mongoose.plugin(schema => { schema.options.usePushEach = true; });
 const Schema   = mongoose.Schema;
 
 
@@ -11,15 +12,13 @@ const playListSchema = new Schema({
     type: String
   },
   moviesList: {
-    type: [Schema.Types.ObjectId],
-    ref: "Movie"
+    type: [{type: Schema.Types.ObjectId, ref: "Movie"}]
   },
   description: {
     type: String
   },
   comments: {
-    type: [Schema.Types.ObjectId],
-    ref: "Comment"
+    type: [{type: Schema.Types.ObjectId, ref: "Comment"}]
   },
   publicPlaylist: {
     type: Boolean
