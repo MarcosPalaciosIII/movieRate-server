@@ -76,10 +76,7 @@ const userSchema = new Schema({
     type: [{type: Schema.Types.ObjectId, ref: 'User'}, Number]
   }
 }, {
-  timestamps: {
-    createdAt: 'created_at',
-    updatedAt: 'updated_at'
-  }
+  timestamps: true
 });
 
 const User = mongoose.model('User', userSchema);

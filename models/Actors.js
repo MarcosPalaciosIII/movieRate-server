@@ -23,10 +23,7 @@ const actorSchema = new Schema({
     type: String
   }
 }, {
-  timestamps: {
-    createdAt: 'created_at',
-    updatedAt: 'updated_at'
-  }
+  timestamps: true
 });
 
 const ActorModel = mongoose.model('Actor', actorSchema);
