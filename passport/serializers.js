@@ -1,7 +1,7 @@
 const passport = require('passport');
 const FbStrategy = require("passport-facebook").Strategy;
 const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
-const User = require('../models/User');
+const UserModel = require('../models/User');
 
 // serialize (what user info do we save to the session)
 //---------------------------------------------
