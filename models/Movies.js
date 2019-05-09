@@ -23,7 +23,7 @@ const movieSchema = new Schema({
     type: String
   },
   cast: {
-    type: [{type: Schema.Types.ObjectId, ref: 'Actors'}]
+    type: [{type: Schema.Types.ObjectId, ref: 'Actor'}]
   },
   genre: {
     type: String
