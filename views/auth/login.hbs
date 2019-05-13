@@ -2,19 +2,22 @@
   <h2>Login</h2>
 
   <form action="/auth/login" method="POST" id="form-container">
-    <label for="username">Username</label>
-    <input id="username" type="text" name="username" placeholder="JonSnow">
+    {{!-- <label for="username"> Username </label>
+    <input id="username" type="text" name="username" placeholder="JonSnow"> --}}
+
+    <label for="emailValidation"> Email </label>
+    <input id="emailValidation" type="text" name="LoginEmail" placeholder="JonSnow@winterfell.com">
 
     <br><br>
 
-    <label for="password">Password</label>
-    <input id="password" type="password" name="password" placeholder="Your password">
+    <label for="password"> Password </label>
+    <input id="password" type="password" name="LoginPassword" placeholder="Your password">
     <br>
-    {{#if message }}
-    <div class="error-message">{{ message }}</div>
+    {{#if errorMessage }}
+    <div class="error-message">{{errorMessage}}</div>
     {{/if}}
 
-    <br><br>
+    <br>
 
     <button>Login</button>
 
@@ -22,5 +25,5 @@
       Don't have an account yet?
       <a href="/auth/signup">Signup</a>
     </p>
-  </form>  
+  </form>
 </div>
