@@ -28,6 +28,15 @@
           <a class="dropdown-item" href="/actors/popular/1"> Popular </a>
         </div>
       </div>
+      <div class="navDropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> Playlists </a>
+        <div class="dropdown-menu">
+          {{#if currentUser}}
+          <a class="dropdown-item" href="/user/playlists/{{currentUser.username}}"> MyPlaylists </a>
+          {{/if}}
+          <a class="dropdown-item" href="/playlists/list"> All Playlists </a>
+        </div>
+      </div>
     </div>
     <div>
       <form id="searchForm" action="/actors/search/1" method="post">
@@ -45,6 +54,7 @@
     </div>
     <div>
       {{#if currentUser}}
+        <a href="/user/profile"> <img class="userAvatar" src="{{currentUser.avatar}}" alt="userAvatar"> </a>
         <a href="/auth/logout">Logout</a>
       {{else}}
         <a href="/auth/login">Login</a>
