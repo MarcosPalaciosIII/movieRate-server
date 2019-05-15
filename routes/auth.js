@@ -9,6 +9,12 @@ const bcryptSalt = 10;
 
 
 router.get("/login", (req, res, next) => {
+  if(req.user){
+      res.redirect("/");
+      // early return to stop the function since there's an error
+      //(prevents the rest of the code form running
+      return;
+    }
   res.render("auth/login", { "message": req.flash("error") });
 });
 
