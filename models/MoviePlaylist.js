@@ -21,8 +21,7 @@ const playListSchema = new Schema({
     type: [{type: Schema.Types.ObjectId, ref: "Comment"}]
   },
   publicPlaylist: {
-    type: Boolean,
-    required: [true, "Is this playlist public or private?"]
+    type: Boolean
   }
 }, {
   timestamps: {
