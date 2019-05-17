@@ -22,9 +22,9 @@ const movieSchema = new Schema({
   mpaaRating: {
     type: String
   },
-  cast: {
-    type: [{type: Schema.Types.ObjectId, ref: 'Actor'}]
-  },
+  // cast: {
+  //   type: [{type: Schema.Types.ObjectId, ref: 'Actor'}]
+  // },
   genre: {
     type: String
   },
@@ -34,7 +34,10 @@ const movieSchema = new Schema({
   previewLink: {
     type: [String]
   },
-  director: {
+  // director: {
+  //   type: [{type: Schema.Types.ObjectId, ref: 'Actor'}]
+  // }
+  tmdbId: {
     type: String
   }
 }, {
