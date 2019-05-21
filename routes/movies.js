@@ -82,6 +82,7 @@ router.get('/popular/:page', (req, res, next) => {
 
 // route for details page for movies
 router.get('/details/:movieId', (req, res, next) => {
+  console.log("the type of the the id from the movie -------------- ", typeof(req.params.movieId));
   axios.get(`https://api.themoviedb.org/3/movie/${req.params.movieId}?api_key=${apiKey}&language=en-US`)
   .then(movieDetails => {
     axios.get(`https://api.themoviedb.org/3/movie/${req.params.movieId}/videos?api_key=${apiKey}`)
@@ -93,16 +94,37 @@ router.get('/details/:movieId', (req, res, next) => {
           axios.get(`https://api.themoviedb.org/3/movie/${req.params.movieId}/release_dates?api_key=${apiKey}&language=en-US`)
           .then(movieRating => {
             // console.log(">>>>>>>>>>>>> ", castDetails.data.cast);
-            console.log("movie rating ---------------- >", movieRating.data.results);
-            var mpaaRating;
-            if(movieRating.data.results.filter(rating => rating.iso_3166_1 === "US").iso_3166_1 === "US") {
-              mpaaRating = movieRating.data.results.filter(rating => rating.iso_3166_1 === "US")[0].release_dates[0].certification;
+            var theMovieRating = "Unknown";
+            for(let i = 0; i < movieRating.data.results.length; i++) {
+              if(movieRating.data.results[i].iso_3166_1 === "US") {
+                theMovieRating = movieRating.data.results[i];
+              } else {
+                continue;
+              }
+            }
+
+            // console.log("the movie rate object :::::::::::::::::::: ", theMovieRating);
+            // console.log("movie rating ---------------- >", movieRating.data.results);
+            var mpaaRating = [];
+            var writers = [];
+            var directors = [];
+            // if(movieRating.data.results.filter(rating => rating.iso_3166_1 === "US").iso_3166_1 === "US") {
+            //   mpaaRating = movieRating.data.results.filter(rating => rating.iso_3166_1 === "US")[0].release_dates[0].certification;
+            // } else {
+            //   mpaaRating = "Unknown";
+            // }
+            if(theMovieRating !== "Unknown") {
+              for(let i = 0; i < theMovieRating.release_dates.length; i++) {
+                if(!mpaaRating.includes(theMovieRating.release_dates[i].certification) && theMovieRating.release_dates[i].certification !== '') {
+                  mpaaRating.push(theMovieRating.release_dates[i].certification);
+                }
+              }
             } else {
-              mpaaRating = "Unknown";
+              mpaaRating.push("Unknown");
             }
             var vidDetails = [];
-            var castArray = [];
-            console.log("mpaaRating rating >>>>>>>>>>>>>>>> ", mpaaRating);
+            // var crewArray = [];
+            // console.log("mpaaRating rating >>>>>>>>>>>>>>>> ", mpaaRating);
             videoDetails.data.results.forEach(oneSite => {
               // console.log(";:::::::::::::::::::::: ", oneSite);
               // if(oneSite.site === "YouTube" && oneSite.type === "Trailer") {
@@ -114,24 +136,73 @@ router.get('/details/:movieId', (req, res, next) => {
 
               castDetails.data.cast.forEach((oneCast,i) => {
                 if(!oneCast.profile_path) {
-                  console.log("------------- ", oneCast);
+                  // console.log("------------- ", oneCast);
                   castDetails.data.cast[i].profile_path = "/images/movies-oscar-icon.png";
                 } else {
                   castDetails.data.cast[i].profile_path = `https://image.tmdb.org/t/p/w200${castDetails.data.cast[i].profile_path}`;
                 }
               });
-              for(let i = 0; i < 5; i++) {
-                castArray.push(castDetails.data.cast[Math.floor(Math.random() * castDetails.data.cast.length)]);
-              }
+              castDetails.data.crew.forEach((oneCast,i) => {
+                if(!oneCast.profile_path) {
+                  // console.log("------------- ", oneCast);
+                  castDetails.data.crew[i].profile_path = "/images/movies-oscar-icon.png";
+                } else {
+                  castDetails.data.crew[i].profile_path = `https://image.tmdb.org/t/p/w200${castDetails.data.crew[i].profile_path}`;
+                }
+                if(castDetails.data.crew[i].department === "Directing" && castDetails.data.crew[i].job === "Director") {
+                  directors.push(castDetails.data.crew[i]);
+                } else if (castDetails.data.crew[i].department === "Writing") {
+                  writers.push(castDetails.data.crew[i]);
+                }
+              });
+              directors.forEach((oneDirector, index) => {
+                for(let i = 0; i < directors.length; i++) {
+                  if(directors[i] === undefined) break;
+                  if(index !== i && oneDirector.name === directors.name) {
+                    directors[i].splice(i, 1);
+                  }
+                }
+              });
+
+              writers.forEach((oneWriter, index) => {
+                for(let i = 0; i < writers.length; i++) {
+                  console.log("the writers info >>>>>>>>>>>>>> ", index, i, oneWriter.name, writers[i].name);
+                  if(writers[i] === undefined) {
+                    console.log("break condition triggered ::::::::::::::: ");
+                    break;
+                  } else if(index === i) {
+                    console.log("continue condition triggered <<<<<<<<<<<<<---------");
+                    continue;
+                  } else if(oneWriter.name === writers[i].name) {
+                    console.log("If condition triggered <<<<<<<<<<< ");
+                    writers.splice(i, 1);
+                  }
+                }
+              });
+              // for(let i = 0; i < castDetails.data.cast.length; i++) {
+              //   if(castDetails.data.cast[i].department) {
+              //     crewArray.push(castDetails.data.cast[i]);
+              //   }
+              // }
+
+              // castArray.sort((a, b) => {
+              //
+              // });
               // console.log("======================= ", movieDetails.data);
               // console.log(">>>>>>>>>>>>>>>>>>>>>>> ", videoDetails.data);
-              // console.log("----------------------- ", castDetails.data.cast);
-
+              // console.log("----------------------- ", castDetails.data.crew);
+              // console.log("the cast array >>>>>>>>>>>>>>>>>> ", crewArray);
+              // console.log("the data getting passed for movie >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ", data);
+              // console.log("the writers ----------------------- >>>>>>>>>> ", writers);
+              // console.log("the directors ====================== >>>>>>>>>>> ", directors);
               data = {
                 movieDetail: movieDetails.data,
                 videoDetail: vidDetails,
                 recommended: recommendedList.data.results,
-                cast: castArray,
+                cast: castDetails.data.cast.splice(0, 6),
+                director: directors,
+                writer: writers.splice(0, 6),
+                crew: castDetails.data.crew,
                 movieRating: mpaaRating
               };
 
@@ -163,7 +234,7 @@ router.get('/details/:movieId', (req, res, next) => {
 
 
 // route for full cast from movie
-router.get('/:movieId/:movieTitle/cast', (req, res, next) => {
+router.get('/cast/:movieId/:movieTitle/cast', (req, res, next) => {
   axios.get(`https://api.themoviedb.org/3/movie/${req.params.movieId}/credits?api_key=${apiKey}&language=en-US`)
   .then(castDetails => {
 
@@ -189,6 +260,34 @@ router.get('/:movieId/:movieTitle/cast', (req, res, next) => {
   });
 });
 
+
+
+// route for full crew from movie
+router.get('/crew/:movieId/:movieTitle/cast', (req, res, next) => {
+  axios.get(`https://api.themoviedb.org/3/movie/${req.params.movieId}/credits?api_key=${apiKey}&language=en-US`)
+  .then(castDetails => {
+
+    castDetails.data.crew.forEach((oneCast,i) => {
+      if(!oneCast.profile_path) {
+        console.log("------------- ", oneCast, i);
+        castDetails.data.crew[i].profile_path = "/images/movies-oscar-icon.png";
+      } else {
+        castDetails.data.crew[i].profile_path = `https://image.tmdb.org/t/p/w200${castDetails.data.crew[i].profile_path}`;
+      }
+    });
+
+    data = {
+      pageTitle: req.params.movieTitle,
+      movieId: req.params.movieId,
+      cast: castDetails.data.crew
+    };
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ", data);
+    res.render('movies/cast.hbs', data);
+  })
+  .catch(err => {
+    next(err);
+  });
+});
 
 
 
