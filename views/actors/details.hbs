@@ -3,20 +3,23 @@
   <div class="actorInfo">
     <div>
       <img src="{{actor.profile_path}}" alt="{{actor.name}}">
-      <h2> <b> {{actor.name}} </b> </h2>
+      <div class="">
+        <h2> <b> {{actor.name}} </b> </h2>
+
+        {{#if actor.birthday}}
+        <h5> <b> Birthday: </b> {{actor.birthday}} </h5>
+        {{else}}
+        <h5> <b> Birthday: </b> Unknown </h5>
+        {{/if}}
+        {{#if actor.place_of_birth}}
+        <h5> <b> Born in:  </b> {{actor.place_of_birth}} </h5>
+        {{else}}
+        <h5> <b> Born in: </b> Unknown </h5>
+        {{/if}}
+      </div>
 
     </div>
     <div>
-      {{#if actor.birthday}}
-        <h5> <b> Birthday: </b> {{actor.birthday}} </h5>
-      {{else}}
-        <h5> <b> Birthday: </b> Unknown </h5>
-      {{/if}}
-      {{#if actor.place_of_birth}}
-        <h5> <b> Born in:  </b> {{actor.place_of_birth}} </h5>
-      {{else}}
-        <h5> <b> Born in: </b> Unknown </h5>
-      {{/if}}
       <h5 class="contentDescription"> <b> Biography </b> </h5>
       {{#if actor.biography}}
         <div class="bio">
