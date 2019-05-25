@@ -1,0 +1,20 @@
+<div class="{{generalBodyCLass}}">
+  <h2 class="pageTitle"> {{pageTitle}} Playlist </h2>
+
+  <div class="">
+    {{#if playlist.moviesList}}
+      <div class="movieList">
+        {{#each playlist.moviesList}}
+          <div class="movieCard">
+            <a href="/movies/details/{{this.id}}"> <img src="{{this.poster_path}}" alt=""> </a>
+            <h5> {{this.title}} </h5>
+          </div>
+        {{/each}}
+      </div>
+    {{else}}
+      <h4> You have not added movies to this playlist </h4>
+    {{/if}}
+  </div>
+
+
+</div>

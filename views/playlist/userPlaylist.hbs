@@ -1,0 +1,60 @@
+<div class="{{generalBodyCLass}}">
+  {{#if wrongUser}}
+    <h2 class="pageTitle"> {{wrongUser}} </h2>
+  {{else}}
+    <h2 class="pageTitle"> {{pageTitle}} </h2>
+
+    {{#if errorMessage}}
+      <h4 class="errorMessage"> {{errorMessage}} </h4>
+    {{/if}}
+
+    <div class="playlistListPage">
+      <div class="watchlistCreateForm">
+        <form action="/playlists/create" method="post">
+          <div>
+            <label for="title-input"> <h5> <span class="requiredSpan"> * </span> Title </h5> </label>
+            <br>
+            <input id="title-input" type="text" name="titleInput" value="">
+          </div>
+
+          <div>
+            <label for="description-input"> <h5> Description </h5> </label>
+            <br>
+            <input id="description-input" type="text" name="descriptionInput" value="">
+          </div>
+
+          <div class="formRadioSelect">
+            <h5> <span class="requiredSpan"> * </span> Make playlist public? </h5>
+            <div>
+              <label for="public-input"><input id="public-input" type="radio" name="publicInput" value="true"> Yes </label>
+              <label for="public-input"><input id="public-input" type="radio" name="publicInput" value="false"> No </label>
+            </div>
+          </div>
+
+          <button> Create Playlist </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="userPlaylists">
+      {{#each userPlaylists}}
+        <div class="playlistCard">
+          <a href="/playlists/details/{{this._id}}"> <h3> {{this.title}} </h3> </a>
+
+          <form class="deletePlaylist" action="/playlists/delete/{{this._id}}" method="post">
+             <button type="submit"> Remove </button>
+           </form>
+
+          {{!-- <div>
+            {{#each this.movieList}}
+            <h3> {{this.title}} </h3>
+            <a href="/movies/details/{{this.id}}"> <img src="{{this.poster_path}}" alt=""> </a>
+            {{/each}}
+          </div> --}}
+        </div>
+
+      {{/each}}
+    </div>
+
+  {{/if}}
+</div>
