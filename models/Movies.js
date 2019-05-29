@@ -7,37 +7,43 @@ const movieSchema = new Schema({
   title: {
     type: String
   },
-  runtime: {
-    type: Number
-  },
-  description: {
-    type: String
-  },
-  rating: {
-    type: Number
-  },
-  userRating: {
-    type: Number
-  },
-  mpaaRating: {
-    type: String
-  },
+  // runtime: {
+  //   type: Number
+  // },
+  // description: {
+  //   type: String
+  // },
+  // rating: {
+  //   type: Number
+  // },
+  // userRating: {
+  //   type: Number
+  // },
+  // mpaaRating: {
+  //   type: String
+  // },
   // cast: {
   //   type: [{type: Schema.Types.ObjectId, ref: 'Actor'}]
   // },
-  genre: {
-    type: String
-  },
-  reviews: {
-    type: [{type: Schema.Types.ObjectId, ref: 'Comment'}]
-  },
-  previewLink: {
-    type: [String]
-  },
+  // genre: {
+  //   type: String
+  // },
+  // reviews: {
+  //   type: [{type: Schema.Types.ObjectId, ref: 'Comment'}]
+  // },
+  // previewLink: {
+  //   type: [String]
+  // },
   // director: {
   //   type: [{type: Schema.Types.ObjectId, ref: 'Actor'}]
-  // }
+  // },
   tmdbId: {
+    type: String
+  },
+  comments: {
+    type: [{type: Schema.Types.ObjectId, ref: 'Comment'}]
+  },
+  imageUrl: {
     type: String
   }
 }, {
