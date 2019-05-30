@@ -2,9 +2,11 @@ const express = require('express');
 const passport = require('passport');
 const router = express.Router();
 const axios = require('axios');
-const MovieModel = require('../models/Movies');
+const Movie = require('../models/Movies');
 const CommentModel = require('../models/Comments');
 const apiKey = process.env.API_KEY;
+const Playlist = require('../models/MoviePlaylist');
+const User = require('../models/User');
 
 const genres = [
     {id: 28, name: "Action"},
@@ -82,7 +84,43 @@ router.get('/popular/:page', (req, res, next) => {
 
 // route for details page for movies
 router.get('/details/:movieId', (req, res, next) => {
-  console.log("the type of the the id from the movie -------------- ", typeof(req.params.movieId));
+  var movieComments = false;
+  var theUserRatings = false;
+  Movie.find({tmdbId: req.params.movieId}).populate('comments')
+  .then(movieFromDb => {
+
+    var userRatingResults = 0;
+    var coutner = 0;
+    console.log("checking for movie in db =========================== ", movieFromDb);
+    if(movieFromDb !== null) {
+      console.log("the movie info is not null >>>>>>>>>>>>>>> ", movieFromDb);
+      // if(movieFromDb.comments.length > 0) {
+      if(movieFromDb.comments) {
+        movieComments = movieFromDb.comments;
+        for(let i = 0; i < movieComments.length; i++) {
+          if (movieComments[i].rating) {
+            userRatingResults += movieComments[i].rating;
+            counter += 1;
+          } else {
+            continue;
+          }
+        }
+      } else {
+        userRatingResults = false;
+      }
+    }
+    console.log("checking the user ratings result if one exists ................... ", userRatingResults);
+    if(userRatingResults) {
+      theUserRatings = userRatingResults / counter;
+    }
+    console.log("going to the next step after finding movie in db ((((((((((((((((()))))))))))))))))");
+
+  }).catch(err => {
+    console.log("got an error looking for movie in db <<<<<<<<<<<<<<<<<<<<< ");
+    next(err);
+  });
+
+  // console.log("the type of the the id from the movie -------------- ", typeof(req.params.movieId));
   axios.get(`https://api.themoviedb.org/3/movie/${req.params.movieId}?api_key=${apiKey}&language=en-US`)
   .then(movieDetails => {
     axios.get(`https://api.themoviedb.org/3/movie/${req.params.movieId}/videos?api_key=${apiKey}`)
@@ -166,15 +204,15 @@ router.get('/details/:movieId', (req, res, next) => {
 
               writers.forEach((oneWriter, index) => {
                 for(let i = 0; i < writers.length; i++) {
-                  console.log("the writers info >>>>>>>>>>>>>> ", index, i, oneWriter.name, writers[i].name);
+                  // console.log("the writers info >>>>>>>>>>>>>> ", index, i, oneWriter.name, writers[i].name);
                   if(writers[i] === undefined) {
-                    console.log("break condition triggered ::::::::::::::: ");
+                    // console.log("break condition triggered ::::::::::::::: ");
                     break;
                   } else if(index === i) {
-                    console.log("continue condition triggered <<<<<<<<<<<<<---------");
+                    // console.log("continue condition triggered <<<<<<<<<<<<<---------");
                     continue;
                   } else if(oneWriter.name === writers[i].name) {
-                    console.log("If condition triggered <<<<<<<<<<< ");
+                    // console.log("If condition triggered <<<<<<<<<<< ");
                     writers.splice(i, 1);
                   }
                 }
@@ -203,12 +241,37 @@ router.get('/details/:movieId', (req, res, next) => {
                 director: directors,
                 writer: writers.splice(0, 6),
                 crew: castDetails.data.crew,
-                movieRating: mpaaRating
+                movieRating: mpaaRating,
+                userPlaylists: false,
+                theComments: movieComments,
+                userRating: theUserRatings
               };
 
-              // console.log("-------------------- ", data);
+              var posterPath = data.movieDetail.poster_path;
 
-              res.render('movies/details.hbs', data);
+              if(!data.movieDetail.poster_path) {
+                data.movieDetail.poster_path = "/images/movie-reel.png";
+              } else {
+                data.movieDetail.poster_path = `https://image.tmdb.org/t/p/w200${posterPath}`;
+              }
+
+              console.log("the data for the movie getting passed to the view page =============>>>> ", data);
+
+              if(req.user) {
+                User.findById(req.user._id).populate('playlists')
+                .then(theUser => {
+                  // console.log("found the user ------ ", theUser);
+                  data.userPlaylists = theUser.playlists;
+                  res.render('movies/details.hbs', data);
+                })
+                .catch(err => {
+                  // log("finding user for movie details page error ====== ", err);
+                  next(err);
+                });
+              } else {
+                // console.log("-------------------- ", data);
+                res.render('movies/details.hbs', data);
+              }
           })
           .catch(err => {
             next(err);
