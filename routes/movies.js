@@ -255,7 +255,7 @@ router.get('/details/:movieId', (req, res, next) => {
                 data.movieDetail.poster_path = `https://image.tmdb.org/t/p/w200${posterPath}`;
               }
 
-              console.log("the data for the movie getting passed to the view page =============>>>> ", data);
+              // console.log("the data for the movie getting passed to the view page =============>>>> ", data);
 
               if(req.user) {
                 User.findById(req.user._id).populate('playlists')
