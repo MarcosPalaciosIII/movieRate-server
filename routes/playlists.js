@@ -171,8 +171,6 @@ router.post('/addToPlaylist/:playlistId/:movieId', (req, res, next) => {
       }).catch(err => next(err));
     }
   }).catch(err => next(err));
-  // console.log("the req body when adding to movie playlist -------------- ", req.body);
-  // res.redirect('back');
 });
 
 
