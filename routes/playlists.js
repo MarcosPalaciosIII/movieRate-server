@@ -95,7 +95,7 @@ router.get('/details/:playlistId', (req, res, next) => {
     data = {
       playlist: playlistFromDb,
       pageTitle: playlistFromDb.title,
-      userRating: theUserRating / playlistFromDb.comments.length
+      userRating: (theUserRating / playlistFromDb.comments.length).toFixed(1)
     };
     res.render('playlist/details', data);
   })
