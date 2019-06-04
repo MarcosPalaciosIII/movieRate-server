@@ -54,7 +54,7 @@
             <div class="commentCard">
               <div>
                 <h4> {{this.author.username}} </h4>
-                <h5> {{this.rating}} </h5>
+                <h5> {{this.rating}} / 10</h5>
               </div>
               <div>
                 <p> {{this.comment}} </p>
@@ -73,6 +73,7 @@
       <div class="movieList">
         {{#each playlist.moviesList}}
           <div class="movieCard">
+            <form class="playlistRemoveMovieForm" action="/playlists/deleteFromPlaylist/{{this._id}}/{{../playlist._id}}" method="post"><button type="submit">X</button></form>
             <a href="/movies/details/{{this.tmdbId}}"> <img src="{{this.imageUrl}}" alt=""> </a>
             <h5> {{this.title}} </h5>
           </div>
