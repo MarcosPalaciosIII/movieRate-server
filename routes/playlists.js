@@ -9,6 +9,7 @@ const Comment = require('../models/Comments');
 
 
 
+// route to view list of all playlists
 router.get('/list', (req, res, next) => {
   if (req.user === undefined) {
     res.redirect("/auth/login");
@@ -38,6 +39,7 @@ router.get('/list', (req, res, next) => {
 
 
 
+// route to create a playlist
 router.post('/create', (req, res, next) => {
   // console.log("this is the req.body of the playlist >>>>>>>>>>>>>>>>> ", typeof(req.body.titleInput));
 
@@ -84,19 +86,40 @@ router.post('/create', (req, res, next) => {
 });
 
 
+
+// route to view playlist details
 router.get('/details/:playlistId', (req, res, next) => {
-  Playlist.findById(req.params.playlistId).populate('moviesList').populate({path : 'comments', populate : {path : 'author'}})
+  Playlist.findById(req.params.playlistId).populate('author').populate('moviesList').populate({path : 'comments', populate : {path : 'author'}})
   .then(playlistFromDb => {
     var theUserRating = 0;
+    var isDeletable = false;
     playlistFromDb.comments.forEach(oneComment => {
       theUserRating += Number(oneComment.rating);
-      console.log("the user rating ============== ", oneComment, playlistFromDb);
+      if(String(oneComment.author._id) === String(req.user._id)) {
+        oneComment.editable = true;
+      } else {
+        oneComment.editable = false;
+      }
+      // console.log("the user rating ============== ", oneComment, "------- playlist -------- ", playlistFromDb);
     });
+
+    if(playlistFromDb.comments.length !== 0) {
+      theUserRating = (theUserRating / playlistFromDb.comments.length).toFixed(1);
+    }
+
+    console.log("the playlist info in the details page >>>>>>>>>>>>>>>>>>>>>> ", playlistFromDb.author._id, req.user._id);
+    if(String(playlistFromDb.author._id) === String(req.user._id)) {
+      isDeletable = true;
+    }
+
     data = {
       playlist: playlistFromDb,
       pageTitle: playlistFromDb.title,
-      userRating: (theUserRating / playlistFromDb.comments.length).toFixed(1)
+      userRating: theUserRating,
+      deletable: isDeletable
     };
+    // console.log("the rating info _____  theUserRating >> ", theUserRating, typeof(theUserRating), "playlist comment length >>>> ", playlistFromDb.comments.length, typeof(playlistFromDb.comments.length), "the results >>>>>>>>>>>>>>>>>>>> ", (theUserRating / playlistFromDb.comments.length).toFixed(1));
+    console.log("the data for the playlist being passed for details page ====================== ", data);
     res.render('playlist/details', data);
   })
   .catch(err => {
@@ -105,7 +128,7 @@ router.get('/details/:playlistId', (req, res, next) => {
 });
 
 
-
+// route to delete a playlist
 router.post('/delete/:playlistId', (req, res, next) => {
   // console.log("deleting movie ========= ", req.params.playlistId);
   req.user.playlists.pull(req.params.playlistId);
@@ -125,7 +148,7 @@ router.post('/delete/:playlistId', (req, res, next) => {
 });
 
 
-
+// route to add movie to playlist
 router.post('/addToPlaylist/:playlistId/:movieId', (req, res, next) => {
   Movie.findOne({'tmdbId': `${req.params.movieId}`})
   .then(movieFromDb => {
@@ -174,7 +197,7 @@ router.post('/addToPlaylist/:playlistId/:movieId', (req, res, next) => {
 });
 
 
-
+// route to add comment to playlist
 router.post('/addComment/:playlistId', (req, res, next) => {
   console.log("this is the req body when adding a comment to a playlist >>>>>>>>>>>>>>>>>>>>>> ", req.body, "the playlist id -------- ", req.params.playlistId);
   const newComment = new Comment(req.body);
@@ -193,6 +216,53 @@ router.post('/addComment/:playlistId', (req, res, next) => {
     }).catch(err => next(err));
   }).catch(err => next(err));
 });
+
+
+
+// route to remove a movie from Playlist
+router.post('/deleteFromPlaylist/:movieId/:playlistId', (req,res, next) => {
+  console.log("the info being passed from the req. params, movie id >>>>>>>>>>>>>>>> ", req.params.movieId, "playlist id >>>>>> ", req.params.playlistId);
+    Playlist.findById(req.params.playlistId)
+    .then(playlistFromDb => {
+      console.log("the playlist prior to deleting movie -------------------- ", playlistFromDb);
+      playlistFromDb.moviesList.pull(req.params.movieId);
+      playlistFromDb.save()
+      .then(updatedPlaylist => {
+        console.log("Saved playlist after deleting a movie ================= ", updatedPlaylist);
+        res.redirect('back');
+      }).catch(err => next(err));
+    }).catch(err => next(err));
+});
+
+
+
+// delete comment from playlist route
+router.post('/deleteCommentFromPlaylist/:commentId/:playlistId', (req, res, next) => {
+  Playlist.findById(req.params.playlistId)
+  .then(playlistFromDb => {
+    playlistFromDb.comment.pull(req.params.commentId);
+    playlistFromDb.save()
+    .then(updatedPlaylist => {
+      Comment.findByIdAndRemove(req.params.commentId)
+      .then(() => {
+        res.redirect('back');
+      }).catch(err => next(err));
+    }).catch(err => next(err));
+  }).catch(err => next(err));
+});
+
+
+
+// route to edit a comment in the playlist
+router.post('/editComment/:commentId/', (req, res, next) => {
+  console.log("updated playlist comment ------------------ ", req.body);
+  Comment.findByIdAndUpdate(req.params.commentId, req.body)
+  .then(updatedComment => {
+    console.log("this is the playlist comment after updating it >>>>>>>>>>>>>> ", updatedComment);
+    res.redirect('back');
+  }).catch(err => next(err));
+});
+
 
 
 module.exports = router;
