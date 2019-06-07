@@ -3,7 +3,7 @@ const passport = require('passport');
 const router = express.Router();
 const axios = require('axios');
 const Movie = require('../models/Movies');
-const CommentModel = require('../models/Comments');
+const Comment = require('../models/Comments');
 const apiKey = process.env.API_KEY;
 const Playlist = require('../models/MoviePlaylist');
 const User = require('../models/User');
@@ -86,7 +86,7 @@ router.get('/popular/:page', (req, res, next) => {
 router.get('/details/:movieId', (req, res, next) => {
   var movieComments = false;
   var theUserRatings = false;
-  Movie.find({tmdbId: req.params.movieId}).populate('comments')
+  Movie.find({tmdbId: req.params.movieId}).populate('comments').populate({path : 'comments', populate : {path : 'author'}})
   .then(movieFromDb => {
 
     var userRatingResults = 0;
@@ -513,6 +513,23 @@ router.get("/search/:query/:page", (req, res, next) => {
   .catch(err => {
     next(err);
   });
+});
+
+
+
+// add comment to movie route
+router.post('/addComment/:movieId', (req, res, next) => {
+  Comment.create(req.body)
+  .then(newComment => {
+    Movie.findById(req.params.movieId)
+    .then(movieFromDb => {
+      movieFromDb.comments.push(newComment._id);
+      movieFromDb.save()
+      .then(updatedMovie => {
+        res.redirect('back');
+      }).catch(err => next(err));
+    }).catch(err => next(err));
+  }).catch(err => next(err));
 });
 
 
