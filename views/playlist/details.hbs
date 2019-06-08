@@ -7,16 +7,18 @@
         <div>
           <p class="playlistDescription"> {{playlist.description}} </p>
         </div>
-        <h5> User Rating: {{userRating}} / 10 </h5>
+        <div>
+          <h5> User Rating: &nbsp{{userRating}} / 10 </h5>
+        </div>
       </div>
     </div>
     <div>
-      <div class="">
+      <div>
         <h3> <span class="contentDescription"> Comments </span> </h3>
         <!-- Button trigger modal -->
-        <a href="#" class="nav-link" data-toggle="modal" data-target="#exampleModalCenter"> Add a Comment </a>
+        <a href="#" class="nav-link" data-toggle="modal" data-target="#addPlaylistCommentForm"> Add a Comment </a>
         <!-- Modal -->
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal fade" id="addPlaylistCommentForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class=" commentModal modal-content">
               <div class="modal-header">
@@ -33,7 +35,7 @@
                   </div>
                   <br>
                   <div class="">
-                    <label for="commentInput"> <span class="requiredSpan"> * </span> Rating </label>
+                    <label for="commentInput"> <span class="requiredSpan"> * </span> Comment </label>
                     <textarea id="commentInput" type="text" name="comment" value="" required rows="6" cols="28"></textarea>
                   </div>
                   <br>
@@ -42,7 +44,6 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel </button>
-                {{!-- <button type="button" class="btn btn-primary">Save changes</button> --}}
               </div>
             </div>
           </div>
@@ -53,8 +54,67 @@
           {{#each playlist.comments}}
             <div class="commentCard">
               <div>
-                <h4> {{this.author.username}} </h4>
-                <h5> {{this.rating}} / 10</h5>
+                <div>
+                  <div>
+                    <img src="{{this.author.avatar}}" alt="user avatar">
+                    <h4> {{this.author.username}} </h4>
+                  </div>
+                </div>
+                <div>
+                  <h5> {{this.rating}} / 10 </h5>
+                  {{#if this.editable}}
+                    {{!-- <h5 class="commentEdit">edit</h5> --}}
+                    <div class="navDropdown commentDropdown">
+                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> <img src="/images/tripleDotVertical.png" alt="triple dot"> </a>
+
+                      <div class="dropdown-menu commentDropdownMenu">
+                        <form action="/playlists/deleteCommentFromPlaylist/{{this._id}}/{{../playlist._id}}" method="post"><button class="dropdown-item" type="submit"> Delete </button></form>
+
+                        <!-- Button trigger modal -->
+                        <a href="#" class="nav-link dropdown-item" data-toggle="modal" data-target="#editPlaylistCommentForm{{@index}}"> Edit </a>
+
+                      </div>
+                    </div>
+
+                    {{!-- <form class="commentEdit" action="/playlists/editComment/{{this._id}}" method="post">
+                      <button class="" type="submit"> Edit </button>
+                    </form> --}}
+
+
+                  {{/if}}
+                  <!-- Modal -->
+                  <div class="modal fade" id="editPlaylistCommentForm{{@index}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class=" commentModal modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle"> Edit Your Comment </h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <form class="playlistCommentForm" action="/playlists/editComment/{{this._id}}" method="post">
+                            <div class="">
+                              <label for="ratingInput"> <span class="requiredSpan"> * </span> Rating </label>
+                              <input id="ratingInput" type="number" name="rating" min="1" max="10" value="{{this.rating}}" required>
+                            </div>
+                            <br>
+                            <div class="">
+                              <label for="commentInput"> <span class="requiredSpan"> * </span> Comment </label>
+                              <textarea id="commentInput" type="text" name="comment" value="" required rows="6" cols="28">{{this.comment}}</textarea>
+                            </div>
+                            <br>
+                            <button class="btn btn-secondary" type="submit"> Update Comment </button>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
               </div>
               <div>
                 <p> {{this.comment}} </p>
@@ -73,7 +133,9 @@
       <div class="movieList">
         {{#each playlist.moviesList}}
           <div class="movieCard">
-            <form class="playlistRemoveMovieForm" action="/playlists/deleteFromPlaylist/{{this._id}}/{{../playlist._id}}" method="post"><button type="submit">X</button></form>
+            {{#if ../deletable}}
+              <form class="playlistRemoveMovieForm" action="/playlists/deleteFromPlaylist/{{this._id}}/{{../playlist._id}}" method="post"><button type="submit">X</button></form>
+            {{/if}}
             <a href="/movies/details/{{this.tmdbId}}"> <img src="{{this.imageUrl}}" alt=""> </a>
             <h5> {{this.title}} </h5>
           </div>
