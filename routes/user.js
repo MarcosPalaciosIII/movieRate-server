@@ -9,6 +9,7 @@ const Comment = require('../models/Comments');
 
 
 
+// route to view user profile
 router.get('/profile', (req, res, next) => {
 
   if(req.user === undefined) {
@@ -23,6 +24,7 @@ router.get('/profile', (req, res, next) => {
 
 
 
+// route to find playlists belonging to the user
 router.get('/playlists/:username', (req, res, next) => {
   // console.log("the user and username ======>>> ", req.params.username, "=====", req.user.username);
   // this conditional statement is working backwards (reading both usernames as not the same when they are the same)
@@ -48,9 +50,53 @@ router.get('/playlists/:username', (req, res, next) => {
 });
 
 
-
+// route to add movie to user favorites
 router.post('/myFaves/add/:movieId', (req, res, next) => {
-
+  console.log("0 adding to fave list <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ", req.params.movieId, "---------------", req.user);
+  Movie.findOne({'tmdbId': `${req.params.movieId}`})
+  .then(movieFromDb => {
+    if(movieFromDb) {
+      console.log("1 found movie in db ------------ ", movieFromDb);
+      // Playlist.findById(req.params.playlistId)
+      // .then(playlistFromDb => {
+        // console.log("2 playlist found in db ------------ >>>> ", playlistFromDb, movieFromDb._id);
+        var contains = false;
+        req.user.favMovies.forEach(oneMovie => {
+          if(JSON.stringify(oneMovie) === JSON.stringify(movieFromDb._id)) {
+            contains = true;
+          }
+        });
+        if(contains) {
+          console.log("2 playist includes the movie already <<<<<<<<<<<<<<<<<<<<");
+          res.redirect('back');
+        } else {
+          console.log("3 this movie was not found in the playlist <<<<<<<<<<<<<<<<<<", movieFromDb, ">>>>>>>>>>>>>> ", req.user);
+          req.user.favMovies.push(movieFromDb._id);
+          req.user.save()
+          .then(updatedUser => {
+            console.log("4 the playlist has been updated ================== ", updatedUser);
+            res.redirect('back');
+          }).catch(err => next(err));
+        }
+      // }).catch(err => next(err));
+    } else {
+      console.log("1.5 movie not found in DB, preparing to create <<<<<<<<<<<<<<<<<<<< ");
+      Movie.create(req.body)
+      .then(newMovie => {
+        console.log("2.5 Movie has been created and added to db >>>>>>>>>>>>>>>>>>>>>> ", newMovie);
+        // Playlist.findById(req.params.playlistId)
+        // .then(playlistFromDb => {
+          // console.log("3.5 playlist found and adding new movie to it after adding movie to db <<<<<<<<<<<<<<<<<<<< ", playlistFromDb);
+          req.user.favMovies.push(newMovie._id);
+          req.user.save()
+          .then(updatedUser => {
+            console.log("3.5 Playlist updated with newly created movie <<<<<<<<<<<<<<<<< >>>>>>>>>>>>>>>> ", updatedUser);
+            res.redirect('back');
+          }).catch(err => next(err));
+        // }).catch(err => next(err));
+      }).catch(err => next(err));
+    }
+  }).catch(err => next(err));
 });
 
 
