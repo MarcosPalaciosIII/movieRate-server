@@ -148,7 +148,13 @@
     <div class="navDropdown addToFaveButton">
       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" onclick=spinner(this)> <img class="" src="/images/redPlusCircle.png" alt="fave button"> </a>
       <div class="dropdown-menu dropleft">
-        <a class="dropdown-item" href="#"> Add to Fave </a>
+        {{!-- <a class="dropdown-item" href="/user/myFaves/add/{{movieDetail.id}}"> Add to Fave </a> --}}
+        <form id="addToPlaylistForm" action="/user/myFaves/add/{{movieDetail.id}}" method="post">
+          <label for="movieTitleInput"><input id="movieTitleInput" type="text" name="title" value="{{movieDetail.title}}"></label>
+          <label for="movieIdInput"><input id="movieIdInput" type="text" name="tmdbId" value="{{movieDetail.id}}"></label>
+          <label for="movieImageInput"><input id="movieImageInput" type="text" name="imageUrl" value="{{movieDetail.poster_path}}"></label>
+          <button class="dropdown-item" type="submit" > Add to Fave </button>
+        </form>
         {{!-- <div class="navDropdown"> --}}
           <a class="dropdown-toggle dropdown-item playlistSubmenuButton" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> Add to List </a>
           <div class="dropdown-menu playlistSubmenu">
