@@ -240,7 +240,7 @@ router.post('/deleteFromPlaylist/:movieId/:playlistId', (req,res, next) => {
 router.post('/deleteCommentFromPlaylist/:commentId/:playlistId', (req, res, next) => {
   Playlist.findById(req.params.playlistId)
   .then(playlistFromDb => {
-    playlistFromDb.comment.pull(req.params.commentId);
+    playlistFromDb.comments.pull(req.params.commentId);
     playlistFromDb.save()
     .then(updatedPlaylist => {
       Comment.findByIdAndRemove(req.params.commentId)
