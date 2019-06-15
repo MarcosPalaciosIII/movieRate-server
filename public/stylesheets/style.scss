@@ -65,11 +65,13 @@ nav > div {
 }
 
 nav > div:nth-child(2) {
-    justify-content: center;
+    justify-content: flex-end;
+    width: 48vw;
 }
 
 nav > div:nth-child(3) {
     justify-content: flex-end;
+    width: 10vw;
 }
 
 a .pageTitle:hover {
@@ -81,7 +83,7 @@ a .pageTitle:hover {
 }
 
 #searchForm input {
-  width: 17vw;
+  width: 14vw;
 }
 
 #addToPlaylistForm label {
@@ -279,6 +281,7 @@ a .pageTitle:hover {
   width: 9vw;
   height: 37vh;
   text-align: center;
+  margin-right: 0.26vw;
 }
 
 .actorCardImg {
@@ -289,7 +292,7 @@ a .pageTitle:hover {
 
 .movieList {
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
   align-items: center;
   flex-flow: row wrap;
 }
@@ -299,8 +302,10 @@ a .pageTitle:hover {
   align-items: center;
   flex-direction: column;
   width: 9vw;
-  height: 37vh;
+  height: 34vh;
   text-align: center;
+  margin-bottom: 4vh;
+  margin-right: 0.26vw;
 }
 
 .movieCard {
@@ -345,7 +350,7 @@ a .pageTitle:hover {
 
 .recommendedList {
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
   align-items: center;
   flex-flow: row wrap;
   margin-bottom: 5vh;
@@ -385,6 +390,7 @@ a .pageTitle:hover {
 .contentDescription {
   text-decoration: underline;
   font-weight: bold;
+  font-size: 1rem;
 }
 
 .genres {
@@ -624,6 +630,11 @@ a .pageTitle:hover {
   pointer-events: none;
 }
 
+.playlistBody {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
 .playlistListPage {
   margin-bottom: 5vh;
   height: 14vh;
@@ -665,11 +676,42 @@ a .pageTitle:hover {
   color: lightgray;
 }
 
-.playlistDescriptionsAndComments {
+.playlistMovieList {
   display: flex;
+  align-items: center;
+  flex-flow: row wrap;
+  overflow: scroll;
+  height: 80vh;
+  border-radius: 1%;
+}
+
+.playlistMovieCard > a > img {
+  margin-bottom: 1vh;
+  height: 23vh;
+}
+
+.playlistMovieList h5 {
+  font-size: 0.7rem;
+}
+
+.playlistMovieList > .playlistMovieCard {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 9vw;
+  height: 32vh;
+  text-align: center;
+  border-radius: 10%;
+  margin-right: 0.45vw;
+}
+
+.playlistDescriptionsAndComments {
+  // display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  height: 25vh;
+  height: 17vh;
+  width: 99%;
+  margin-bottom: 1.3vh;
 }
 
 .playlistDescriptionsAndComments > div:nth-child(1) {
@@ -679,15 +721,30 @@ a .pageTitle:hover {
   flex-direction: column;
 }
 
+.playlistDescriptionsAndComments > div:nth-child(1) > h3 {
+  margin-bottom: 2vh;
+}
+
 .playlistDescriptionsAndComments > div:nth-child(2) > div:nth-child(1) {
   display: flex;
-  // justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  flex-direction: column;
+  // flex-direction: column;
+  margin-bottom: 2vh;
+}
+
+.playlistDescriptionsAndComments > div:nth-child(2) > div:nth-child(1) > a {
+  padding: 0;
+}
+
+.playlistDescriptionsAndComments > div:nth-child(2) > div:nth-child(1) > a:hover {
+  color: ghostWhite;
 }
 
 .playlistDescriptionsAndComments > div:nth-child(1) > div {
   display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .playlistDescriptionsAndComments > div:nth-child(1) > div > h5 {
@@ -695,22 +752,25 @@ a .pageTitle:hover {
 }
 
 .playlistDescriptionsAndComments > div:nth-child(1) > div > div {
-  max-height: 15vh;
-  min-height: 15vh;
+  // max-height: 12vh;
+  min-height: 4vh;
   overflow: scroll;
 }
 
 .playlistDescriptionsAndComments > div:nth-child(2) {
   width: 38vw;
+  border-radius: 10%;
+
 }
 
 .playlistDescription {
   display: flex;
   // justify-content: center;
   width: 40vw;
-  max-height: 16vh;
-  min-height: 16vh;
-  overflow: scroll;
+  // max-height: 14vh;
+  min-height: 10vh;
+  // overflow: scroll;
+  margin: 0;
 }
 
 .playlistComments {
@@ -721,10 +781,11 @@ a .pageTitle:hover {
   width: 100%;
   // max-height: 16vh;
   // min-height: 16vh;
-  height: 12vh;
+  height: 55vh;
   overflow: scroll;
-  overflow-y: scroll;
+  // overflow-y: scroll;
   // padding-top: 4vh;
+  border-radius: 1%;
 }
 
 .playlistComments a.nav-link:hover {
@@ -754,8 +815,34 @@ a .pageTitle:hover {
   margin-right: 1vw;
 }
 
+.playlistRemoveMovieForm {
+  position: relative;
+  top: 3.5vh;
+  left: 3vw;
+}
+
+.playlistRemoveMovieForm > button {
+  background-color: maroon;
+  border-radius: 10%;
+}
+
+.playlistRemoveMovieForm > button:hover {
+  background-color: #B5B5B5;
+}
+
+.playlistRemoveCommentForm > button {
+  position: relative;
+  bottom: 0.8vh;
+  left: 0.55vw;
+  background-color: maroon;
+}
+
+.playlistRemoveCommentForm > button:hover {
+  background-color: #B5B5B5;
+}
+
 .commentModal {
-  background-color: rgba(55, 55, 55, 0.5);;
+  background-color: rgba(55, 55, 55, 0.5);
   color: ghostwhite;
 }
 
@@ -777,6 +864,83 @@ a .pageTitle:hover {
   padding: 0.5vh 0.5vw;
 }
 
+.commentCard > div:nth-child(1) > div:nth-child(1) {
+  display: flex;
+  align-items: center;
+}
+
+.commentCard > div:nth-child(1) > div:nth-child(2) {
+  display: flex;
+  align-items: center;
+}
+
+.commentCard > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 1vw;
+}
+
+.commentCard > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > img {
+  width: 1.7vw;
+  background-color: white;
+  margin-right: 1vw;
+  position: relative;
+  bottom: 0.5vh
+}
+
+.playlistComments > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) {
+  display: flex;
+  align-items: center;
+}
+
+.commentDropdown {
+  width: 2.6vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.commentDropdown > a {
+  position: relative;
+  left: 1.4vw;
+  width: fit-content;
+  padding: 0;
+}
+
+.commentDropdown > a > img {
+  width: 2vw;
+}
+
+.commentDropdownMenu {
+  top: -7px !important;
+  left: -25px !important;
+}
+
+.commentDropdownMenu > a {
+  text-align: center;
+  font-size: 0.8vw;
+}
+
+.commentDropdownMenu > form > button {
+  text-align: center;
+  font-size: 0.8vw;
+}
+
+.commentEdit {
+  margin-right: 1vw;
+}
+
+.commentEdit > button {
+  color: #5B5B5B;
+  background-color: transparent;
+  border: none;
+}
+
+.commentEdit > button:hover {
+  color: ghostWhite;
+}
+
 .commentCard > div:nth-child(2) {
   border: 0.1px solid rgba(15, 15, 15, 0.3);
   width: 100%;
@@ -791,6 +955,18 @@ a .pageTitle:hover {
   font-size: 0.8rem;
   border-radius: 9px;
 }
+
+.custom-switch > label {
+  color: ghostWhite;
+}
+
+// .custom-control-label::before {
+//   content: "Make Public"
+// }
+//
+// .custom-control-label::after {
+//   content: "Make Private"
+// }
 
 .requiredSpan {
   color: red;
