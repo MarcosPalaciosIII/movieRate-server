@@ -15,11 +15,10 @@ const passport     = require("passport");
 
 const app = express();
 
-
 // Load environment variables from the ".env" files
 // (put this before the setupr files since this defines env variables)
+// require("dotenv").config({path: __dirname + './.env'});
 require("dotenv").config();
-
 // run the code that sets up the Mongoose database connection
 require("./config/mongoose-setup");
 // run the code that sets up Passport
@@ -144,6 +143,8 @@ app.use((req, res, next) => {
   // Passport defines "req.user" if the user is logged in
   // ("req.user" is the result of deserialize)
   res.locals.currentUser = req.user;
+
+  res.locals.domainName = process.env.DOMAIN_NAME;
 
   // call "next()" to tell Express that we've finished
   // (otherwise your browser will hang)
