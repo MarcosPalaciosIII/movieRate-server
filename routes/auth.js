@@ -160,12 +160,37 @@ router.post("/signup", (req, res, next) => {
         });
 
         newUser.save()
-        .then(() => {
-          res.redirect("/");
-        })
-        .catch(err => {
-          res.render("auth/signup", { message: "Something went wrong" });
-        });
+        .then((theNewUser) => {
+          // res.redirect("/");
+          // res.redirect('auth/login');
+
+          // Passport defines the "req.login()"
+          // for us to specify when to log in a user into the session
+          req.login(theNewUser, (err) => {
+            if (err) {
+              // console.log("something went wrong with login() from passport", err);
+
+              // if it didn't work show the error page
+              next(err);
+            }
+            else {
+              console.log("user" + theNewUser);
+              theNewUser.set({loggedIn: true});
+              theNewUser.save()
+              .then(() => {
+                // console.log("User has been logged in }}}}}}}}}}}}} ", req.user, "=============", theNewUser);
+
+                req.session.cookie.expires = false;  //this should make cookies last for duration of user.
+
+                //redirect to the home page on successful log in
+                res.redirect("/");
+              })
+              .catch((err) => {
+                next(err);
+              });
+            }
+          }); //req.login()
+        }).catch(err => res.render("auth/signup", { message: "Something went wrong" }) );
       });
     }
   });
