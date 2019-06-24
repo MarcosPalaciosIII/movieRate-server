@@ -93,10 +93,12 @@ router.get('/details/:playlistId', (req, res, next) => {
   .then(playlistFromDb => {
     var theUserRating = 0;
     var isDeletable = false;
+    var commentAdd = true;
     playlistFromDb.comments.forEach(oneComment => {
       theUserRating += Number(oneComment.rating);
       if(String(oneComment.author._id) === String(req.user._id)) {
         oneComment.editable = true;
+        commentAdd = false;
       } else {
         oneComment.editable = false;
       }
@@ -104,7 +106,12 @@ router.get('/details/:playlistId', (req, res, next) => {
     });
 
     if(playlistFromDb.comments.length !== 0) {
-      theUserRating = (theUserRating / playlistFromDb.comments.length).toFixed(1);
+      // console.log("checking the remainder ---------------------------------------------- ", (theUserRating / playlistFromDb.comments.length) % 1 === 0);
+      if((theUserRating / playlistFromDb.comments.length) === 10 || (theUserRating / playlistFromDb.comments.length) % 1 === 0) {
+        theUserRating = (theUserRating / playlistFromDb.comments.length);
+      } else {
+        theUserRating = (theUserRating / playlistFromDb.comments.length).toFixed(1);
+      }
     }
 
     console.log("the playlist info in the details page >>>>>>>>>>>>>>>>>>>>>> ", playlistFromDb.author._id, req.user._id);
@@ -116,7 +123,8 @@ router.get('/details/:playlistId', (req, res, next) => {
       playlist: playlistFromDb,
       pageTitle: playlistFromDb.title,
       userRating: theUserRating,
-      deletable: isDeletable
+      deletable: isDeletable,
+      canAddComment: commentAdd
     };
     // console.log("the rating info _____  theUserRating >> ", theUserRating, typeof(theUserRating), "playlist comment length >>>> ", playlistFromDb.comments.length, typeof(playlistFromDb.comments.length), "the results >>>>>>>>>>>>>>>>>>>> ", (theUserRating / playlistFromDb.comments.length).toFixed(1));
     console.log("the data for the playlist being passed for details page ====================== ", data);
@@ -263,6 +271,21 @@ router.post('/editComment/:commentId/', (req, res, next) => {
   }).catch(err => next(err));
 });
 
+
+
+// route to change the status of public or private for the playlists
+router.post('/changePublicStatus', (req, res, next) => {
+  console.log("changing public status of playlist ---------------------------- ", req.body);
+  Playlist.findById(req.body.playlistId)
+  .then(playlistFromDb => {
+    playlistFromDb.publicPlaylist = req.body.isPublic;
+    playlistFromDb.save()
+    .then(updatedPlaylist => {
+      console.log("status changed for playlist to be public or not. . . . . . . . . . . . . . . . . ", updatedPlaylist.publicPlaylist);
+      res.redirect('back');
+    }).catch(err => next(err));
+  }).catch(err => next(err));
+});
 
 
 module.exports = router;
