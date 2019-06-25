@@ -101,4 +101,16 @@ router.post('/myFaves/add/:movieId', (req, res, next) => {
 
 
 
+// Route to update the users info from profile
+router.post('/updateProfile', (req, res, next) => {
+  console.log("============= the curent user and profile form info ============= ", req.user, ">>>>>>>>> ", req.body);
+  findByIdAndUpdate(req.user._id, req.body)
+  .then((updatedUser) => {
+    console.log("the updated user after profile update ::::::::::::::::::::::::::::::: ", updatedUser);
+    next();
+  }).catch(err => next(err));
+});
+
+
+
 module.exports = router;
