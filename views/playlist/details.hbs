@@ -136,10 +136,20 @@
     </div>
 
     <div class="">
-      <div class="custom-control custom-switch">
-        <input type="checkbox" class="custom-control-input" id="customSwitch1">
-        <label class="custom-control-label" for="customSwitch1"> Make Public </label>
-      </div>
+      {{#if deletable}}
+        <h6 id="theDomainName"> {{domainName}} </h6>
+        {{!-- <h4>Public: {{playlist.publicPlaylist}}</h4> --}}
+        <div class="custom-control custom-switch">
+          <input type="checkbox" class="custom-control-input" id="customSwitch1" name="{{playlist.publicPlaylist}}" value="{{playlist._id}}">
+          <label class="custom-control-label" for="customSwitch1" value="{{playlist._id}}"> Make Public </label>
+        </div>
+      {{else}}
+        {{#if playlist.publicPlaylist}}
+          <h4> This List is Public </h4>
+        {{else}}
+          <h4> This List is Private </h4>
+        {{/if}}
+      {{/if}}
       <div class="playlistMovieList">
         {{#if playlist.moviesList}}
           {{#each playlist.moviesList}}
