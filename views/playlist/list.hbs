@@ -3,7 +3,7 @@
 
     <div class="userPlaylists">
       {{#each playlist}}
-        <h3> {{this.title}} </h3>
+        <a href="/playlists/details/{{this._id}}"> <h3> {{this.title}} </h3> </a>
       {{/each}}
     </div>
   </div>
