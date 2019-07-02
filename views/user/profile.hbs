@@ -1,4 +1,12 @@
 <div class="{{generalBodyCLass}}">
   <h2 class="pageTitle"> {{pageTitle}} </h2>
 
+
+  <form class="userProfileUpdateForm" action="/user/updateProfile" method="post">
+    <label for="avatarUpdateInput"> <img src="{{currentUser.avatar}}" alt=""> </label>
+    <input id="avatarUpdateInput" type="text" name="avatar" value="{{currentUser.avatar}}">
+
+    <button name="button"> Update Avatar </button>
+  </form>
+
 </div>
