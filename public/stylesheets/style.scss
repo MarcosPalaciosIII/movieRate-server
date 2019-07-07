@@ -94,6 +94,10 @@ a .pageTitle:hover {
   font-size: 0.8rem;
 }
 
+#theDomainName {
+  display: none;
+}
+
 .navDropdown {
   width: 5.5vw;
 }
@@ -455,30 +459,39 @@ a .pageTitle:hover {
   display: flex;
   // justify-content: space-between;
   align-items: baseline;
-  flex-flow: column wrap;
-  height: 46vh;
+  // flex-flow: column wrap;
+  flex-flow: row wrap;
+  // height: 46vh;
+  height: 17vh;
 }
 
 .castSection > div {
-  width: 8vw;
+  // width: 8vw;
+  width: 6vw;
   height: 15vh;
   display: flex;
-  flex-direction: row;
+  // flex-direction: row;
+  flex-direction: column;
   align-items: center;
 }
 
 .castSection > div > a > img {
-  height: 13vh;
+  // height: 13vh;
+  height: 12vh;
   width: 5.3vw;
+  margin-bottom: 1vh;
 }
 
 .castSection h6 {
-  font-size: 0.9rem;
+  // font-size: 0.9rem;
+  font-size: 0.6rem;
 }
 
 .castAndCrew {
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
+  height: 50vh;
 }
 
 .castAndCrew > div:nth-child(1) {
@@ -494,15 +507,18 @@ a .pageTitle:hover {
 }
 
 .castAndCrew > div:nth-child(2) > div > div:nth-child(1) {
-  width: 17vw;
+  // width: 17vw;
+  width: 10vw;
 }
 
 .castAndCrew > div:nth-child(2) > div > div:nth-child(2) {
-  width: 32vw;
+  // width: 32vw;
+  width: 24vw;
 }
 
 .brightLink {
-  color: snow;
+  // color: snow;
+  color: cadetblue;
 }
 
 .brightLink:hover {
@@ -681,8 +697,9 @@ a .pageTitle:hover {
   align-items: center;
   flex-flow: row wrap;
   overflow: scroll;
-  height: 80vh;
+  height: 78vh;
   border-radius: 1%;
+  width: 53vw;
 }
 
 .playlistMovieCard > a > img {
@@ -981,6 +998,17 @@ a .pageTitle:hover {
   // width: 20vw;
   text-align: center;
   color: maroon;
+}
+
+.userProfileUpdateForm {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userProfileUpdateForm img {
+  width: 10vw;
 }
 
 // .bio > h5 {
