@@ -88,49 +88,59 @@
         </div>
       </div>
     </div>
-    <div class="castAndCrew">
-      <div>
-        <h4> <span class="contentDescription"> Cast </span> </h4>
-        <div class="castSection">
-          {{#each cast}}
-          <div>
-            <a href="/actors/details/{{this.id}}"> <img src="{{this.profile_path}}" alt="{{this.name}} image"> </a>
-            <h6> {{this.name}} </h6>
-            <!-- <h6> {{this.character}} </h6> -->
+
+    <div>
+      <div class="castAndCrew">
+        <div>
+          <h4> <span class="contentDescription"> Cast </span> </h4>
+          <div class="castSection">
+            {{#each cast}}
+            <div>
+              <a href="/actors/details/{{this.id}}"> <img src="{{this.profile_path}}" alt="{{this.name}} image"> </a>
+              <h6> {{this.name}} </h6>
+              <!-- <h6> {{this.character}} </h6> -->
+            </div>
+            {{/each}}
           </div>
-          {{/each}}
+          <a class="brightLink" href="/movies/cast/{{movieDetail.id}}/{{movieDetail.title}}/cast"> See Cast > </a>
         </div>
-        <a class="brightLink" href="/movies/cast/{{movieDetail.id}}/{{movieDetail.title}}/cast"> See Cast > </a>
+
+        <div>
+          <div class="">
+            <div class="theDirectos">
+              <h4> <span class="contentDescription"> Directed By </span> </h4>
+              <div class="castSection">
+                {{#each director}}
+                <div>
+                  <a href="/actors/details/{{this.id}}"> <img src="{{this.profile_path}}" alt="{{this.name}} image"> </a>
+                  <h6> {{this.name}} </h6>
+                </div>
+                {{/each}}
+              </div>
+            </div>
+            <div class="theWriters">
+              <h4> <span class="contentDescription"> Writen By </span> </h4>
+              <div class="castSection">
+                {{#each writer}}
+                <div>
+                  <a href="/actors/details/{{this.id}}"> <img src="{{this.profile_path}}" alt="{{this.name}} image"> </a>
+                  <h6> {{this.name}} </h6>
+                </div>
+                {{/each}}
+              </div>
+            </div>
+          </div>
+          <a class="brightLink" href="/movies/crew/{{movieDetail.id}}/{{movieDetail.title}}/cast"> See Crew > </a>
+        </div>
+
       </div>
 
       <div>
-        <div class="">
-          <div class="theDirectos">
-            <h4> <span class="contentDescription"> Directed By </span> </h4>
-            <div class="castSection">
-              {{#each director}}
-              <div>
-                <a href="/actors/details/{{this.id}}"> <img src="{{this.profile_path}}" alt="{{this.name}} image"> </a>
-                <h6> {{this.name}} </h6>
-              </div>
-              {{/each}}
-            </div>
-          </div>
-          <div class="theWriters">
-            <h4> <span class="contentDescription"> Writen By </span> </h4>
-            <div class="castSection">
-              {{#each writer}}
-              <div>
-                <a href="/actors/details/{{this.id}}"> <img src="{{this.profile_path}}" alt="{{this.name}} image"> </a>
-                <h6> {{this.name}} </h6>
-              </div>
-              {{/each}}
-            </div>
-          </div>
-        </div>
-        <a class="brightLink" href="/movies/crew/{{movieDetail.id}}/{{movieDetail.title}}/cast"> See Crew > </a>
+        <h3>comment section</h3>
       </div>
     </div>
+
+
     <br />
     <br />
     <h4> <span class="contentDescription"> Recommended </span> </h4>
@@ -146,7 +156,7 @@
   </div>
   {{!-- <div class="addToFaveButton"> --}}
     <div class="navDropdown addToFaveButton">
-      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" onclick=spinner(this)> <img class="" src="/images/redPlusCircle.png" alt="fave button"> </a>
+      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" onclick=spinner(this)> <img class="" src="/images/greenPlusCircle.png" alt="fave button"> </a>
       <div class="dropdown-menu dropleft">
         {{!-- <a class="dropdown-item" href="/user/myFaves/add/{{movieDetail.id}}"> Add to Fave </a> --}}
         <form id="addToPlaylistForm" action="/user/myFaves/add/{{movieDetail.id}}" method="post">
