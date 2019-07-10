@@ -180,7 +180,8 @@ router.post('/addToPlaylist/:playlistId/:movieId', (req, res, next) => {
           playlistFromDb.save()
           .then(updatedPlaylist => {
             console.log("5 the playlist has been updated ================== ", updatedPlaylist);
-            res.redirect('back');
+            // res.redirect('back');
+            next();
           }).catch(err => next(err));
         }
       }).catch(err => next(err));
@@ -196,7 +197,8 @@ router.post('/addToPlaylist/:playlistId/:movieId', (req, res, next) => {
           playlistFromDb.save()
           .then(updatedPlaylist => {
             console.log("4.5 Playlist updated with newly created movie <<<<<<<<<<<<<<<<< >>>>>>>>>>>>>>>> ", updatedPlaylist);
-            res.redirect('back');
+            // res.redirect('back');
+            next();
           }).catch(err => next(err));
         }).catch(err => next(err));
       }).catch(err => next(err));
@@ -219,7 +221,8 @@ router.post('/addComment/:playlistId', (req, res, next) => {
       playlistFromDB.save()
       .then(updatedPlaylist => {
         console.log("the updated playlist after adding comment <<><<><><>><>><<><><>><><>< ", updatedPlaylist);
-        res.redirect('back');
+        // res.redirect('back');
+        next();
       }).catch(err => next(err));
     }).catch(err => next(err));
   }).catch(err => next(err));
@@ -282,7 +285,8 @@ router.post('/changePublicStatus', (req, res, next) => {
     playlistFromDb.save()
     .then(updatedPlaylist => {
       console.log("status changed for playlist to be public or not. . . . . . . . . . . . . . . . . ", updatedPlaylist.publicPlaylist);
-      res.redirect('back');
+      // res.redirect('back');
+      next();
     }).catch(err => next(err));
   }).catch(err => next(err));
 });
