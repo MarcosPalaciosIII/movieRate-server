@@ -86,14 +86,16 @@ router.get('/popular/:page', (req, res, next) => {
 router.get('/details/:movieId', (req, res, next) => {
   var movieComments = false;
   var theUserRatings = false;
+  var movieFoundInDb = false;
   Movie.find({tmdbId: req.params.movieId}).populate('comments').populate({path : 'comments', populate : {path : 'author'}})
   .then(movieFromDb => {
 
     var userRatingResults = 0;
     var coutner = 0;
-    console.log("checking for movie in db =========================== ", movieFromDb);
-    if(movieFromDb !== null) {
+    console.log("checking for movie in db =========================== ", movieFromDb, movieFromDb.length);
+    if(movieFromDb.length > 0) {
       console.log("the movie info is not null >>>>>>>>>>>>>>> ", movieFromDb);
+      movieFoundInDb = true;
       // if(movieFromDb.comments.length > 0) {
       if(movieFromDb.comments) {
         movieComments = movieFromDb.comments;
@@ -132,6 +134,7 @@ router.get('/details/:movieId', (req, res, next) => {
           axios.get(`https://api.themoviedb.org/3/movie/${req.params.movieId}/release_dates?api_key=${apiKey}&language=en-US`)
           .then(movieRating => {
             // console.log(">>>>>>>>>>>>> ", castDetails.data.cast);
+
             var theMovieRating = "Unknown";
             for(let i = 0; i < movieRating.data.results.length; i++) {
               if(movieRating.data.results[i].iso_3166_1 === "US") {
@@ -233,6 +236,15 @@ router.get('/details/:movieId', (req, res, next) => {
               // console.log("the data getting passed for movie >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ", data);
               // console.log("the writers ----------------------- >>>>>>>>>> ", writers);
               // console.log("the directors ====================== >>>>>>>>>>> ", directors);
+
+              if(!movieFoundInDb) {
+                Movie.create({title: movieDetails.data.title, tmdbId:movieDetails.data.id, imageUrl:`https://image.tmdb.org/t/p/w200${movieDetails.data.poster_path}`})
+                .then(newlyCreatedMovie => {
+                  console.log("created new movie in DB ================ ", newlyCreatedMovie);
+
+                }).catch(err => next(err));
+              }
+
               data = {
                 movieDetail: movieDetails.data,
                 videoDetail: vidDetails,
