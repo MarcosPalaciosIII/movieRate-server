@@ -4,7 +4,14 @@
     <div>
       <img src="https://image.tmdb.org/t/p/w500{{movieDetail.backdrop_path}}" alt="backdrop">
 
-      <h4> <b> Rating: </b> {{movieDetail.vote_average}}/10 </h4>
+      <div class="movieRatings">
+        <h4> <b> Rating: </b> {{movieDetail.vote_average}}/10 </h4>
+        {{#if theMovieInDb.userRating}}
+          <h4> <b> User Rating: </b> {{theMovieInDb.userRating}} </h4>
+        {{else}}
+          <h4> <b> User Rating: </b> None </h4>
+        {{/if}}
+      </div>
       <h4> <b> Rated:  </b> {{movieRating}} </h4>
       <!-- <img src="https://image.tmdb.org/t/p/w200{{movieDetail.poster_path}}" alt="poster">
 
@@ -106,7 +113,7 @@
         </div>
 
         <div>
-          <div class="">
+          <div>
             <div class="theDirectos">
               <h4> <span class="contentDescription"> Directed By </span> </h4>
               <div class="castSection">
@@ -136,7 +143,160 @@
       </div>
 
       <div>
-        <h3>comment section</h3>
+        <div>
+          <h4> <span class="contentDescription"> Comments </span> </h4>
+          <div class="">
+
+            {{#if canAddComment}}
+              <a href="#" class="nav-link" data-toggle="modal" data-target="#addMovieCommentForm"> Add a Comment </a>
+            {{else}}
+            <!-- Button trigger modal -->
+            <h5> Already Added a Comment </h5>
+            {{/if}}
+            <!-- Modal -->
+            <div class="modal fade" id="addMovieCommentForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class=" commentModal modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle"> Add Your Comment </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form class="playlistCommentForm" action="/movies/addComment/{{theMovieInDb._id}}" method="post">
+                      <div class="">
+                        <label for="ratingInput"> <span class="requiredSpan"> * </span> Rating </label>
+                        <input id="ratingInput" type="number" name="rating" min="1" max="10" value="" required>
+                      </div>
+                      <br>
+                      <div class="">
+                        <label for="commentInput"> <span class="requiredSpan"> * </span> Comment </label>
+                        <textarea id="commentInput" type="text" name="comment" value="" required rows="6" cols="28"></textarea>
+                      </div>
+                      <br>
+                      <button class="btn btn-secondary" type="submit"> Add Comment </button>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="movieComments">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <div class="playlistComments">
+            {{#if theMovieInDb.comments}}
+              {{#each theMovieInDb.comments}}
+                <div class="commentCard">
+                  <div>
+                    <div>
+                      <div>
+                        <img src="{{this.author.avatar}}" alt="user avatar">
+                        <h4> {{this.author.username}} </h4>
+                      </div>
+                    </div>
+                    <div>
+                      <h5> {{this.rating}} / 10 </h5>
+                      {{#if this.editable}}
+                        {{!-- <h5 class="commentEdit">edit</h5> --}}
+                        <div class="navDropdown commentDropdown">
+                          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> <img src="/images/tripleDotVertical.png" alt="triple dot"> </a>
+
+                          <div class="dropdown-menu commentDropdownMenu">
+                            <form action="/movies/deleteCommentFromMoive/{{this._id}}/{{../theMovieInDb._id}}" method="post"><button class="dropdown-item" type="submit"> Delete </button></form>
+
+                            <!-- Button trigger modal -->
+                            <a href="#" class="nav-link dropdown-item" data-toggle="modal" data-target="#editMovieCommentForm{{@index}}"> Edit </a>
+
+                          </div>
+                        </div>
+
+                        {{!-- <form class="commentEdit" action="/playlists/editComment/{{this._id}}" method="post">
+                          <button class="" type="submit"> Edit </button>
+                        </form> --}}
+
+
+                      {{/if}}
+                      <!-- Modal -->
+                      <div class="modal fade" id="editMovieCommentForm{{@index}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class=" commentModal modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLongTitle"> Edit Your Comment </h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <form class="playlistCommentForm" action="/movies/editComment/{{this._id}}" method="post">
+                                <div class="">
+                                  <label for="ratingInput"> <span class="requiredSpan"> * </span> Rating </label>
+                                  <input id="ratingInput" type="number" name="rating" min="1" max="10" value="{{this.rating}}" required>
+                                </div>
+                                <br>
+                                <div>
+                                  <label for="commentInput"> <span class="requiredSpan"> * </span> Comment </label>
+                                  <textarea id="commentInput" type="text" name="comment" value="" required rows="6" cols="28">{{this.comment}}</textarea>
+                                </div>
+                                <br>
+                                <button class="btn btn-secondary" type="submit"> Update Comment </button>
+                              </form>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                  <div>
+                    <p> {{this.comment}} </p>
+                  </div>
+                </div>
+              {{/each}}
+            {{else}}
+              <h5> No Comments to Display </h5>
+            {{/if}}
+
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
       </div>
     </div>
 
