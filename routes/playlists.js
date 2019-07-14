@@ -114,7 +114,7 @@ router.get('/details/:playlistId', (req, res, next) => {
       }
     }
 
-    console.log("the playlist info in the details page >>>>>>>>>>>>>>>>>>>>>> ", playlistFromDb.author._id, req.user._id);
+    // console.log("the playlist info in the details page >>>>>>>>>>>>>>>>>>>>>> ", playlistFromDb.author._id, req.user._id);
     if(String(playlistFromDb.author._id) === String(req.user._id)) {
       isDeletable = true;
     }
@@ -127,7 +127,7 @@ router.get('/details/:playlistId', (req, res, next) => {
       canAddComment: commentAdd
     };
     // console.log("the rating info _____  theUserRating >> ", theUserRating, typeof(theUserRating), "playlist comment length >>>> ", playlistFromDb.comments.length, typeof(playlistFromDb.comments.length), "the results >>>>>>>>>>>>>>>>>>>> ", (theUserRating / playlistFromDb.comments.length).toFixed(1));
-    console.log("the data for the playlist being passed for details page ====================== ", data);
+    // console.log("the data for the playlist being passed for details page ====================== ", data);
     res.render('playlist/details', data);
   })
   .catch(err => {
@@ -160,56 +160,60 @@ router.post('/delete/:playlistId', (req, res, next) => {
 router.post('/addToPlaylist/:playlistId/:movieId', (req, res, next) => {
   Movie.findOne({'tmdbId': `${req.params.movieId}`})
   .then(movieFromDb => {
-    if(movieFromDb) {
-      console.log("1 found movie in db ------------ ", movieFromDb);
-      Playlist.findById(req.params.playlistId)
-      .then(playlistFromDb => {
-        console.log("2 playlist found in db ------------ >>>> ", playlistFromDb, movieFromDb._id);
-        var contains = false;
-        playlistFromDb.moviesList.forEach(oneMovie => {
-          if(JSON.stringify(oneMovie) === JSON.stringify(movieFromDb._id)) {
-            contains = true;
-          }
-        });
-        if(contains) {
-          console.log("3 playist includes the movie already <<<<<<<<<<<<<<<<<<<<");
-          res.redirect('back');
-        } else {
-          console.log("4 this movie was not found in the playlist <<<<<<<<<<<<<<<<<<", movieFromDb);
-          playlistFromDb.moviesList.push(movieFromDb._id);
-          playlistFromDb.save()
-          .then(updatedPlaylist => {
-            console.log("5 the playlist has been updated ================== ", updatedPlaylist);
-            // res.redirect('back');
-            next();
-          }).catch(err => next(err));
+    // if(movieFromDb) {
+    // console.log("1 found movie in db ------------ ", movieFromDb);
+    Playlist.findById(req.params.playlistId)
+    .then(playlistFromDb => {
+      // console.log("2 playlist found in db ------------ >>>> ", playlistFromDb, movieFromDb._id);
+      var contains = false;
+
+      playlistFromDb.moviesList.forEach(oneMovie => {
+        if(JSON.stringify(oneMovie) === JSON.stringify(movieFromDb._id)) {
+          contains = true;
         }
-      }).catch(err => next(err));
-    } else {
-      console.log("1.5 movie not found in DB, preparing to create <<<<<<<<<<<<<<<<<<<< ");
-      Movie.create(req.body)
-      .then(newMovie => {
-        console.log("2.5 Movie has been created and added to db >>>>>>>>>>>>>>>>>>>>>> ", newMovie);
-        Playlist.findById(req.params.playlistId)
-        .then(playlistFromDb => {
-          console.log("3.5 playlist found and adding new movie to it after adding movie to db <<<<<<<<<<<<<<<<<<<< ", playlistFromDb);
-          playlistFromDb.moviesList.push(newMovie._id);
-          playlistFromDb.save()
-          .then(updatedPlaylist => {
-            console.log("4.5 Playlist updated with newly created movie <<<<<<<<<<<<<<<<< >>>>>>>>>>>>>>>> ", updatedPlaylist);
-            // res.redirect('back');
-            next();
-          }).catch(err => next(err));
+      });
+      if(contains) {
+        // console.log("3 playist includes the movie already <<<<<<<<<<<<<<<<<<<<");
+        res.redirect('back');
+        // next();
+        // return;
+      } else {
+        // console.log("4 this movie was not found in the playlist <<<<<<<<<<<<<<<<<<", movieFromDb);
+        playlistFromDb.moviesList.push(movieFromDb._id);
+        playlistFromDb.save()
+        .then(updatedPlaylist => {
+          // console.log("5 the playlist has been updated ================== ", updatedPlaylist);
+          res.redirect('back');
+          // next();
+          // return;
         }).catch(err => next(err));
-      }).catch(err => next(err));
-    }
+      }
+    }).catch(err => next(err));
+    // } else {
+    //   // console.log("1.5 movie not found in DB, preparing to create <<<<<<<<<<<<<<<<<<<< ");
+    //   Movie.create(req.body)
+    //   .then(newMovie => {
+    //     // console.log("2.5 Movie has been created and added to db >>>>>>>>>>>>>>>>>>>>>> ", newMovie);
+    //     Playlist.findById(req.params.playlistId)
+    //     .then(playlistFromDb => {
+    //       // console.log("3.5 playlist found and adding new movie to it after adding movie to db <<<<<<<<<<<<<<<<<<<< ", playlistFromDb);
+    //       playlistFromDb.moviesList.push(newMovie._id);
+    //       playlistFromDb.save()
+    //       .then(updatedPlaylist => {
+    //         // console.log("4.5 Playlist updated with newly created movie <<<<<<<<<<<<<<<<< >>>>>>>>>>>>>>>> ", updatedPlaylist);
+    //         // res.redirect('back');
+    //         next();
+    //       }).catch(err => next(err));
+    //     }).catch(err => next(err));
+    //   }).catch(err => next(err));
+    // }
   }).catch(err => next(err));
 });
 
 
 // route to add comment to playlist
 router.post('/addComment/:playlistId', (req, res, next) => {
-  console.log("this is the req body when adding a comment to a playlist >>>>>>>>>>>>>>>>>>>>>> ", req.body, "the playlist id -------- ", req.params.playlistId);
+  // console.log("this is the req body when adding a comment to a playlist >>>>>>>>>>>>>>>>>>>>>> ", req.body, "the playlist id -------- ", req.params.playlistId);
   const newComment = new Comment(req.body);
   newComment.author = req.user._id;
   newComment.forPlaylist = req.params.playlistId;
@@ -220,7 +224,7 @@ router.post('/addComment/:playlistId', (req, res, next) => {
       playlistFromDB.comments.push(newComment._id);
       playlistFromDB.save()
       .then(updatedPlaylist => {
-        console.log("the updated playlist after adding comment <<><<><><>><>><<><><>><><>< ", updatedPlaylist);
+        // console.log("the updated playlist after adding comment <<><<><><>><>><<><><>><><>< ", updatedPlaylist);
         // res.redirect('back');
         next();
       }).catch(err => next(err));
@@ -235,11 +239,11 @@ router.post('/deleteFromPlaylist/:movieId/:playlistId', (req,res, next) => {
   console.log("the info being passed from the req. params, movie id >>>>>>>>>>>>>>>> ", req.params.movieId, "playlist id >>>>>> ", req.params.playlistId);
     Playlist.findById(req.params.playlistId)
     .then(playlistFromDb => {
-      console.log("the playlist prior to deleting movie -------------------- ", playlistFromDb);
+      // console.log("the playlist prior to deleting movie -------------------- ", playlistFromDb);
       playlistFromDb.moviesList.pull(req.params.movieId);
       playlistFromDb.save()
       .then(updatedPlaylist => {
-        console.log("Saved playlist after deleting a movie ================= ", updatedPlaylist);
+        // console.log("Saved playlist after deleting a movie ================= ", updatedPlaylist);
         res.redirect('back');
       }).catch(err => next(err));
     }).catch(err => next(err));
@@ -266,10 +270,10 @@ router.post('/deleteCommentFromPlaylist/:commentId/:playlistId', (req, res, next
 
 // route to edit a comment in the playlist
 router.post('/editComment/:commentId/', (req, res, next) => {
-  console.log("updated playlist comment ------------------ ", req.body);
+  // console.log("updated playlist comment ------------------ ", req.body);
   Comment.findByIdAndUpdate(req.params.commentId, req.body)
   .then(updatedComment => {
-    console.log("this is the playlist comment after updating it >>>>>>>>>>>>>> ", updatedComment);
+    // console.log("this is the playlist comment after updating it >>>>>>>>>>>>>> ", updatedComment);
     res.redirect('back');
   }).catch(err => next(err));
 });
@@ -278,13 +282,13 @@ router.post('/editComment/:commentId/', (req, res, next) => {
 
 // route to change the status of public or private for the playlists
 router.post('/changePublicStatus', (req, res, next) => {
-  console.log("changing public status of playlist ---------------------------- ", req.body);
+  // console.log("changing public status of playlist ---------------------------- ", req.body);
   Playlist.findById(req.body.playlistId)
   .then(playlistFromDb => {
     playlistFromDb.publicPlaylist = req.body.isPublic;
     playlistFromDb.save()
     .then(updatedPlaylist => {
-      console.log("status changed for playlist to be public or not. . . . . . . . . . . . . . . . . ", updatedPlaylist.publicPlaylist);
+      // console.log("status changed for playlist to be public or not. . . . . . . . . . . . . . . . . ", updatedPlaylist.publicPlaylist);
       // res.redirect('back');
       next();
     }).catch(err => next(err));
