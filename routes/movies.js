@@ -85,36 +85,70 @@ router.get('/popular/:page', (req, res, next) => {
 // route for details page for movies
 router.get('/details/:movieId', (req, res, next) => {
   var movieComments = false;
-  var theUserRatings = false;
+  var theMovieInDb;
   var movieFoundInDb = false;
-  Movie.find({tmdbId: req.params.movieId}).populate('comments').populate({path : 'comments', populate : {path : 'author'}})
+  var theUserRating = 0;
+  var commentAdd = true;
+  Movie.findOne({tmdbId: req.params.movieId}).populate('comments').populate({path : 'comments', populate : {path : 'author'}})
   .then(movieFromDb => {
+    theMovieInDb = movieFromDb;
+    // var userRatingResults = 0;
+    var counter = 0;
 
-    var userRatingResults = 0;
-    var coutner = 0;
-    console.log("checking for movie in db =========================== ", movieFromDb, movieFromDb.length);
-    if(movieFromDb.length > 0) {
+
+    // console.log("checking for movie in db =========================== ", movieFromDb, movieFromDb.length);
+    if(movieFromDb) {
+
       console.log("the movie info is not null >>>>>>>>>>>>>>> ", movieFromDb);
       movieFoundInDb = true;
       // if(movieFromDb.comments.length > 0) {
       if(movieFromDb.comments) {
-        movieComments = movieFromDb.comments;
-        for(let i = 0; i < movieComments.length; i++) {
-          if (movieComments[i].rating) {
-            userRatingResults += movieComments[i].rating;
-            counter += 1;
+        // console.log("found comments for the movie -------------------- ", movieFromDb.comments[0].rating);
+        // movieComments = movieFromDb.comments;
+        // for(let i = 0; i < movieComments.length; i++) {
+        //   // if (movieComments[i].rating) {
+        //   theUserRating += movieComments[i].rating;
+        //   counter += 1;
+        //   // } else {
+        //   //   continue;
+        //   // }
+        // }
+      // } else {
+      //   userRatingResults = false;
+      // }
+
+
+        if(movieFromDb.comments.length > 0) {
+          movieComments = true;
+          movieFromDb.comments.forEach(oneComment => {
+            theUserRating += Number(oneComment.rating);
+
+            console.log("the author info for the comment >>>>>>>>>>>>>>>>>>>>> ", oneComment);
+            if(String(oneComment.author._id) === String(req.user._id)) {
+              oneComment.editable = true;
+              commentAdd = false;
+            } else {
+              oneComment.editable = false;
+            }
+            // console.log("the user rating ============== ", oneComment, "------- movie -------- ", movieFromDb);
+          });
+
+          // console.log("checking the remainder ---------------------------------------------- ", (theUserRating / movieFromDb.comments.length) % 1 === 0);
+          if((theUserRating / movieFromDb.comments.length) === 10 || (theUserRating / movieFromDb.comments.length) % 1 === 0) {
+            theUserRating = (theUserRating / movieFromDb.comments.length);
           } else {
-            continue;
+            theUserRating = (theUserRating / movieFromDb.comments.length).toFixed(1);
           }
+        } else {
+          userRatingResults = false;
         }
-      } else {
-        userRatingResults = false;
       }
+
     }
-    console.log("checking the user ratings result if one exists ................... ", userRatingResults);
-    if(userRatingResults) {
-      theUserRatings = userRatingResults / counter;
-    }
+    // console.log("checking the user ratings result if one exists ................... ", userRatingResults);
+    // if(userRatingResults) {
+    //   theUserRatings = userRatingResults / counter;
+    // }
     console.log("going to the next step after finding movie in db ((((((((((((((((()))))))))))))))))");
 
   }).catch(err => {
@@ -256,7 +290,9 @@ router.get('/details/:movieId', (req, res, next) => {
                 movieRating: mpaaRating,
                 userPlaylists: false,
                 theComments: movieComments,
-                userRating: theUserRatings
+                theMovieInDb: theMovieInDb,
+                userRating: theUserRating,
+                canAddComment: commentAdd
               };
 
               var posterPath = data.movieDetail.poster_path;
@@ -273,6 +309,7 @@ router.get('/details/:movieId', (req, res, next) => {
                 User.findById(req.user._id).populate('playlists')
                 .then(theUser => {
                   // console.log("found the user ------ ", theUser);
+                  console.log("the movie details from data ========== ", data.userRating);
                   data.userPlaylists = theUser.playlists;
                   res.render('movies/details.hbs', data);
                 })
@@ -531,13 +568,47 @@ router.get("/search/:query/:page", (req, res, next) => {
 
 // add comment to movie route
 router.post('/addComment/:movieId', (req, res, next) => {
-  Comment.create(req.body)
+  console.log("Creating comment");
+
+    const newComment = new Comment(req.body);
+  newComment.author = req.user._id;
+  newComment.forPlaylist = req.params.playlistId;
+  newComment.save()
   .then(newComment => {
+    console.log("the new comment ----- ", newComment);
     Movie.findById(req.params.movieId)
     .then(movieFromDb => {
+      console.log("the movie form db when adding comment =========== ", movieFromDb);
       movieFromDb.comments.push(newComment._id);
       movieFromDb.save()
       .then(updatedMovie => {
+        console.log("the updated movie with the new comment >>>>>>>> ", updatedMovie);
+        res.redirect('back');
+      }).catch(err => next(err));
+    }).catch(err => next(err));
+  }).catch(err => next(err));
+});
+
+
+// route to edit the comment from a movie
+router.post('/editComment/:commentId', (req, res, next) => {
+  Comment.findByIdAndUpdate(req.params.commentId, req.body)
+  .then(commentFromDb => {
+    res.redirect('back');
+  }).catch(err => next(err));
+});
+
+
+
+// route to delete comment from movie and from database
+router.post('/deleteCommentFromMoive/:theCommentId/:theMovieId', (req, res, next) => {
+  Movie.findById(req.params.theMovieId)
+  .then(movieFromDb => {
+    movieFromDb.comments.pull(req.params.theCommentId);
+    movieFromDb.save()
+    .then(updatedMovie => {
+      Comment.findByIdAndRemove(req.params.theCommentId)
+      .then(() => {
         res.redirect('back');
       }).catch(err => next(err));
     }).catch(err => next(err));
