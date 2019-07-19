@@ -119,16 +119,19 @@ router.get('/details/:movieId', (req, res, next) => {
 
 
         if(movieFromDb.comments.length > 0) {
+          console.log("the length of the comments array for the movie >>>>--------------- >>>>> ", movieFromDb.comments.length);
           movieComments = true;
           movieFromDb.comments.forEach(oneComment => {
             theUserRating += Number(oneComment.rating);
 
             console.log("the author info for the comment >>>>>>>>>>>>>>>>>>>>> ", oneComment);
-            if(String(oneComment.author._id) === String(req.user._id)) {
-              oneComment.editable = true;
-              commentAdd = false;
-            } else {
-              oneComment.editable = false;
+            if(req.user) {
+              if(String(oneComment.author._id) === String(req.user._id)) {
+                oneComment.editable = true;
+                commentAdd = false;
+              } else {
+                oneComment.editable = false;
+              }
             }
             // console.log("the user rating ============== ", oneComment, "------- movie -------- ", movieFromDb);
           });
@@ -569,8 +572,10 @@ router.get("/search/:query/:page", (req, res, next) => {
 // add comment to movie route
 router.post('/addComment/:movieId', (req, res, next) => {
   console.log("Creating comment");
-
-    const newComment = new Comment(req.body);
+  if(!req.user) {
+    res.redirect('/auth/login');
+  }
+  const newComment = new Comment(req.body);
   newComment.author = req.user._id;
   newComment.forPlaylist = req.params.playlistId;
   newComment.save()
