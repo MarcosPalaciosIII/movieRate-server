@@ -340,6 +340,13 @@ a .pageTitle:hover {
   font-size: 0.7rem;
 }
 
+.movieRatings {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 96%;
+}
+
 .movieOverview {
   max-height: 16vh;
   min-height: 16vh;
@@ -416,6 +423,21 @@ a .pageTitle:hover {
   margin-bottom: 5vh;
   font-size: 1.5rem;
   margin-top: 3vh;
+}
+
+.detailPage > div:nth-child(3) > div:nth-child(2) {
+  display: flex;
+  justify-content: space-between;
+}
+
+.detailPage > div:nth-child(3) > div:nth-child(2) > div:nth-child(2) {
+  width: 45vw;
+}
+
+.detailPage > div:nth-child(3) > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .detailsPageContent {
@@ -597,7 +619,8 @@ a .pageTitle:hover {
 
 .userAvatar {
   width: 2vw;
-  background-color: white;
+  // background-color: white;
+  background-color: black;
   // margin-right: 1vw;
 }
 
