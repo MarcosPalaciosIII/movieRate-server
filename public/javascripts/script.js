@@ -36,8 +36,8 @@ function spinner(event) {
 }
 
 var toggleInputValue = $("input.custom-control-input").prop('value');
-console.log("===================== ", toggleInputValue);
-console.log("is it public >>>>>>>>>>>>> ", $("input.custom-control-input").prop('checked'), "======", $("input.custom-control-input").prop('name'));
+// console.log("===================== ", toggleInputValue);
+// console.log("is it public >>>>>>>>>>>>> ", $("input.custom-control-input").prop('checked'), "======", $("input.custom-control-input").prop('name'));
 
 
 // console.log("the domain name >>>>>>>>>>>> ", `${new URL($('#theDomainName')[0].innerHTML)}playlists/changePublicStatus`);
