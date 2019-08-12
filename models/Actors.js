@@ -4,15 +4,6 @@ const Schema   = mongoose.Schema;
 
 
 const actorSchema = new Schema({
-  // firstName: {
-  //   type: String
-  // },
-  // middleName: {
-  //   type: String
-  // },
-  // lastName: {
-  //   type: String
-  // },
   name: {
     type: String
   },
@@ -22,12 +13,6 @@ const actorSchema = new Schema({
   tmdbId: {
     type: String
   }
-  // movies: {
-  //   type: [{ type: Schema.Types.ObjectId, ref: "Movies" }]
-  // },
-  // bio: {
-  //   type: String
-  // }
 }, {
   timestamps: true
 });
