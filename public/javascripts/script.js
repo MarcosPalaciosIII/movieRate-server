@@ -1,12 +1,3 @@
-// const axios = require('axios');
-// import axios from 'https://unpkg.com/axios/dist/axios.min.js';
-// import {} from 'dotenv/config';
-// import dotenv from 'dotenv/config';
-// dotenv.config();
-// import theEnv from '.env';
-
-// console.log("these are the environment variables ======== ", theEnv);
-
 document.addEventListener('DOMContentLoaded', () => {
 
   console.log('IronGenerator JS imported successfully!');
