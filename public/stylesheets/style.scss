@@ -153,14 +153,6 @@ a .pageTitle:hover {
   background-color: #141414;
 }
 
-// @keyframes BackgroundShift {
-//   0%{background-position: 100% 100%}
-//   25%{background-position: 50% 50%}
-//   50%{background-position: 0 0}
-//   75%{background-position: -50% -50%}
-//   100%{background-position: -100% -100%}
-// }
-
 .spin {
   animation: spin 0.5s linear 1;
 }
@@ -1000,14 +992,6 @@ a .pageTitle:hover {
   color: ghostWhite;
 }
 
-// .custom-control-label::before {
-//   content: "Make Public"
-// }
-//
-// .custom-control-label::after {
-//   content: "Make Private"
-// }
-
 .requiredSpan {
   color: red;
 }
@@ -1033,7 +1017,3 @@ a .pageTitle:hover {
 .userProfileUpdateForm img {
   width: 10vw;
 }
-
-// .bio > h5 {
-//   overflow-y: visible;
-// }
