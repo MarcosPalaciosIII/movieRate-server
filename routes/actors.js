@@ -44,42 +44,6 @@ router.get('/popular/:page', (req, res, next) => {
 
 
 
-// // top-rated route for actors
-// router.get('/top-rated/:page', (req, res, next) => {
-//   axios.get(`https://api.themoviedb.org/3/person/latest?api_key=${apiKey}&language=en-US&page=${req.params.page}`)
-//   .then(actorList => {
-//     var actorArray = [];
-//     console.log(">>>>>>>>>>>> ", actorList.data);
-//     actorList.data.results.forEach(oneCast => {
-//       if(!oneCast.profile_path) {
-//         console.log("------------- ", oneCast);
-//         oneCast.profile_path = "/images/movies-oscar-icon.png";
-//       } else {
-//         oneCast.profile_path = `https://image.tmdb.org/t/p/w200${oneCast.profile_path}`;
-//       }
-//       actorArray.push(oneCast);
-//     });
-//
-//     data = {
-//       pageTitle: `Latest Actors`,
-//       actorList: actorArray,
-//       pageLink: '/actors/search/',
-//       previousPage: (parseInt(req.params.page) - 1) > 0 ? parseInt(req.params.page) - 1 : false,
-//       page: req.params.page,
-//       nextPageOne:(parseInt(req.params.page) + 1) < actorList.data.total_pages ? parseInt(req.params.page) + 1 : false,
-//       nextPageTwo:(parseInt(req.params.page) + 2) < actorList.data.total_pages ? parseInt(req.params.page) + 2 : false,
-//       nextPageThree: (parseInt(req.params.page) + 3) < actorList.data.total_pages ? parseInt(req.params.page) + 3 : false,
-//       lastPage: actorList.data.total_pages
-//     };
-//     res.render('actors/list.hbs', data);
-//   })
-//   .catch(err => {
-//     next(err);
-//   });
-// });
-
-
-
 // detail route for actors
 router.get('/details/:actorId', (req, res, next) => {
   axios.get(`https://api.themoviedb.org/3/person/${req.params.actorId}?api_key=${apiKey}&language=en-US`)
