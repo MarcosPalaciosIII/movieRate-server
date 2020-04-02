@@ -1,61 +1,68 @@
-@import url('https://fonts.googleapis.com/css?family=Lato|Eagle+Lake|Mirza&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Lato|Eagle+Lake|Mirza&display=swap");
 
 * {
-  font-family: "Eagle Lake", cursive;
+    font-family: "Eagle Lake", cursive;
 }
 
-h1, h2, h3, h4, h5, h6, p, span {
-  color: ghostWhite;
-  font-size: 0.8rem;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span {
+    color: ghostWhite;
+    font-size: 0.8rem;
 }
 
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: ghostwhite;
-  height: 95vh;
-  margin: 0;
-  margin-top: 5vh;
-  padding: 0;
-  color: black;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    background-color: ghostwhite;
+    height: 95vh;
+    margin: 0;
+    margin-top: 5vh;
+    padding: 0;
+    color: black;
 }
 
 a {
-  color: #7C7C7C;
-  text-decoration: none;
-  margin-right: 0.5vw;
+    color: #7c7c7c;
+    text-decoration: none;
+    margin-right: 0.5vw;
 }
 
 h1 {
-  padding: 0;
-  margin: 0;
+    padding: 0;
+    margin: 0;
 }
 
 nav {
-  align-items: center;
-  background-color: #000000;
-  // background-color: #141414;
-  display: flex;
-  height: 5vh;
-  justify-content: space-between;
-  position: fixed;
-  top: 0;
-  width: 100vw;
-  padding: 0 3.5vw;
-  z-index: 1;
+    align-items: center;
+    background-color: #000000;
+    // background-color: #141414;
+    display: flex;
+    height: 5vh;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    padding: 0 3.5vw;
+    z-index: 1;
 }
 
 nav > div > a {
-  margin-right: 1vw;
+    margin-right: 1vw;
 }
 
 nav > div {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 nav a:hover {
-  color: #B5B5B5;
-  text-decoration: none;
+    color: #b5b5b5;
+    text-decoration: none;
 }
 
 nav > div {
@@ -75,552 +82,579 @@ nav > div:nth-child(3) {
 }
 
 a .pageTitle:hover {
-  color: #B5B5B5;
+    color: #b5b5b5;
 }
 
 #carouselExampleControls > a {
-  width: 20px;
+    width: 20px;
 }
 
 #searchForm input {
-  width: 14vw;
+    width: 14vw;
 }
 
 #addToPlaylistForm label {
-  display: none;
+    display: none;
 }
 
 #addToPlaylistForm button.dropdown-item {
-  font-size: 0.8rem;
+    font-size: 0.8rem;
 }
 
 #theDomainName {
-  display: none;
+    display: none;
 }
 
 .navDropdown {
-  width: 5.5vw;
+    width: 5.5vw;
 }
 
 .dropdown-menu a {
-  font-size: 0.8vw;
+    font-size: 0.8vw;
 }
 
 .dropdown-item:hover {
-  background-color: #000000;
-  color: #949494;
+    background-color: #000000;
+    color: #949494;
 }
 
 .addToFaveButton {
-  margin: 1vh;
-  width: 50px;
-  height: 30px;
-  // background: #f00;
-  // border-radius: 30px;
-  // font-size: 5rem;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  // animation: spin 0.5s linear 1;
-  position: fixed;
-  bottom: 10px;
-  right: 0;
+    margin: 1vh;
+    width: 50px;
+    height: 30px;
+    // background: #f00;
+    // border-radius: 30px;
+    // font-size: 5rem;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // animation: spin 0.5s linear 1;
+    position: fixed;
+    bottom: 10px;
+    right: 0;
 }
 
 .addToFaveButton > a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .addToFaveButton img {
-  height: 8vh;
+    height: 8vh;
 }
 
 .dropdown-toggle::after {
-  visibility: hidden;
+    visibility: hidden;
 }
 
 .generalBody {
-  min-height: 95vh;
-  padding: 0.5vh 3.5vw;
-  // background-color: #141414;
-  // background: linear-gradient(150deg, #000000, #929292, #949494, #404040, #404040, #949494, #929292, #000000);
-  // background-size: 200% 200%;
-  // animation: BackgroundShift 30s linear infinite;
-  background-color: #141414;
+    min-height: 95vh;
+    padding: 0.5vh 3.5vw;
+    // background-color: #141414;
+    // background: linear-gradient(150deg, #000000, #929292, #949494, #404040, #404040, #949494, #929292, #000000);
+    // background-size: 200% 200%;
+    // animation: BackgroundShift 30s linear infinite;
+    background-color: #141414;
 }
 
 .spin {
-  animation: spin 0.5s linear 1;
+    animation: spin 0.5s linear 1;
 }
 
 .spinReverse {
-  animation: spinReverse 0.5s linear 1;
+    animation: spinReverse 0.5s linear 1;
 }
 
 @keyframes TurnButton {
-	0%{transform: rotate(0deg)}
-    25%{transform: rotate(45deg)}
-	50%{transform: rotate(90deg)}
-    75%{transform: rotate(135deg)}
-	100%{transform: rotate(180deg)}
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(45deg);
+    }
+    50% {
+        transform: rotate(90deg);
+    }
+    75% {
+        transform: rotate(135deg);
+    }
+    100% {
+        transform: rotate(180deg);
+    }
 }
 
 // animation: spin 0.5s linear 1;
 @keyframes spin {
     from {
-        transform:rotate(0deg);
+        transform: rotate(0deg);
     }
     to {
-        transform:rotate(360deg);
+        transform: rotate(360deg);
     }
 }
 
 @keyframes spinReverse {
     from {
-        transform:rotate(360deg);
+        transform: rotate(360deg);
     }
     to {
-        transform:rotate(0deg);
+        transform: rotate(0deg);
     }
 }
 
 .pageTitle {
-  text-align: center;
-  margin: 3vh 0 5vh 0;
-  text-decoration: underline;
-  // color: black;
-  font-size: 1.6rem;
+    text-align: center;
+    margin: 3vh 0 5vh 0;
+    text-decoration: underline;
+    // color: black;
+    font-size: 1.6rem;
 }
 
 .homeLinkImg {
-  width: 3.3vw;
+    width: 3.3vw;
 }
 
 .header {
-  background-color: #141414;
-  // height: 50vh;
-  // // background-image: url(../images/movieRate-image.jpg);
-  // background-position: center;
-  // background-repeat: no-repeat;
-  // background-image: url(../images/movieRate-image.jpg), linear-gradient(to right,#464646 , #141414)
-  // background-position: center;
-  // background-repeat: no-repeat;
-  // background-size: contain;
+    background-color: #141414;
+    // height: 50vh;
+    // // background-image: url(../images/movieRate-image.jpg);
+    // background-position: center;
+    // background-repeat: no-repeat;
+    // background-image: url(../images/movieRate-image.jpg), linear-gradient(to right,#464646 , #141414)
+    // background-position: center;
+    // background-repeat: no-repeat;
+    // background-size: contain;
 
-  align-items: center;
-  // background-color: #141414;
-  background: linear-gradient(150deg, #000000, #929292, #404040, #141414, #404040, #929292, #000000);
-  // background-size: 200% 200%;
-  // background-color: #929292;
-  // color: #7C7C7C;
-  display: flex;
-  font-size: 3vw;
-  height: 95vh;
-  justify-content: center;
-  // animation: BackgroundShift 30s linear infinite;
+    align-items: center;
+    // background-color: #141414;
+    background: linear-gradient(
+        150deg,
+        #000000,
+        #929292,
+        #404040,
+        #141414,
+        #404040,
+        #929292,
+        #000000
+    );
+    // background-size: 200% 200%;
+    // background-color: #929292;
+    // color: #7C7C7C;
+    display: flex;
+    font-size: 3vw;
+    height: 95vh;
+    justify-content: center;
+    // animation: BackgroundShift 30s linear infinite;
 }
 
 .headerImage {
-  background-image: url(../images/starM-title.png);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  // height: 80vh;
-  height: 41vh;
-  position: relative;
-  right: 10vw;
-  font-family: 'Bangers', cursive;
-  font-size: 4rem;
-  letter-spacing: 0.5vw;
+    background-image: url(../images/starM-title.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    // height: 80vh;
+    height: 41vh;
+    position: relative;
+    right: 10vw;
+    font-family: "Bangers", cursive;
+    font-size: 4rem;
+    letter-spacing: 0.5vw;
 }
 
 .headerTitle {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  // left: 10.8vw;
-  position: relative;
-  // top: 34vh;
-  transform: rotate(329deg);
-  width: 32vw;
-  z-index: 1;
-  color: #606060;
-  left: 27vw;
-  top: 9vh;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    // left: 10.8vw;
+    position: relative;
+    // top: 34vh;
+    transform: rotate(329deg);
+    width: 32vw;
+    z-index: 1;
+    color: #606060;
+    left: 27vw;
+    top: 9vh;
 }
 
 .headerTitle > h1 {
-  // font-size: 2.9rem;
-  font-size: 4.7rem;
-  font-weight: bold;
-  color: #606060;
+    // font-size: 2.9rem;
+    font-size: 4.7rem;
+    font-weight: bold;
+    color: #606060;
 }
 
 .signupForm {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-direction: column;
-  height: 40vh;
-  width: 30vw;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    height: 40vh;
+    width: 30vw;
 }
 
 .actorCard {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: 9vw;
-  height: 37vh;
-  text-align: center;
-  margin-right: 0.26vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 9vw;
+    height: 37vh;
+    text-align: center;
+    margin-right: 0.26vw;
 }
 
 .actorCardImg {
-  margin-bottom: 1vh;
-  // width: 8vw;
-  height: 23vh;
+    margin-bottom: 1vh;
+    // width: 8vw;
+    height: 23vh;
 }
 
 .movieList {
-  display: flex;
-  // justify-content: space-between;
-  align-items: center;
-  flex-flow: row wrap;
+    display: flex;
+    // justify-content: space-between;
+    align-items: center;
+    flex-flow: row wrap;
 }
 
 .movieList > .movieCard {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: 9vw;
-  height: 34vh;
-  text-align: center;
-  margin-bottom: 4vh;
-  margin-right: 0.26vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 9vw;
+    height: 34vh;
+    text-align: center;
+    margin-bottom: 4vh;
+    margin-right: 0.26vw;
 }
 
 .movieCard {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: 8vw;
-  height: 30vh;
-  text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 8vw;
+    height: 30vh;
+    text-align: center;
 }
 
 .movieList > .movieCard img {
-  margin-bottom: 1vh;
-  height: 23vh;
+    margin-bottom: 1vh;
+    height: 23vh;
 }
 
 .movieCard > img {
-  height: 25vh;
+    height: 25vh;
 }
 
 .movieCard > a > img {
-  // width: 8vw;
-  margin-bottom: 1vh;
-  height: 21vh;
+    // width: 8vw;
+    margin-bottom: 1vh;
+    height: 21vh;
 }
 
 .movieCard h5 {
-  font-size: 0.7rem;
+    font-size: 0.7rem;
 }
 
 .movieRatings {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 96%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 96%;
 }
 
 .movieOverview {
-  max-height: 16vh;
-  min-height: 16vh;
-  overflow: scroll;
+    max-height: 16vh;
+    min-height: 16vh;
+    // overflow: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .movieOverview > h5 {
-  // font-family: 'Lato', sans-serif;
-  font-family: 'EB Garamond', serif;
-  font-size: 0.95rem;
+    // font-family: 'Lato', sans-serif;
+    font-family: "EB Garamond", serif;
+    font-size: 0.95rem;
 }
 
 .recommendedList {
-  display: flex;
-  // justify-content: space-between;
-  align-items: center;
-  flex-flow: row wrap;
-  margin-bottom: 5vh;
+    display: flex;
+    // justify-content: space-between;
+    align-items: center;
+    flex-flow: row wrap;
+    margin-bottom: 5vh;
 }
 
 .recommendedList > .movieCard {
-  height: 29vh;
-  width: 9vw;
-  display: flex;
-  flex-direction: column-reverse;
-  align-items: center;
-  justify-content: flex-end;
+    height: 29vh;
+    width: 9vw;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 .recommendedList > .movieCard img {
-  height: 19vh;
+    height: 19vh;
 }
 
 .pageNumbers {
-  text-align: center;
-  margin-bottom: 5vh;
+    text-align: center;
+    margin-bottom: 5vh;
 }
 
 .pageNumbers > a {
-  color: snow;
-  margin-right: 1vw;
+    color: snow;
+    margin-right: 1vw;
 }
 
 .pageNumberInput {
-  display: none;
+    display: none;
 }
 
 .currentPage {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 .contentDescription {
-  text-decoration: underline;
-  font-weight: bold;
-  font-size: 1rem;
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 1rem;
 }
 
 .genres {
-  display: flex;
+    display: flex;
 }
 
 .genres > h6 {
-  margin-right: 1vw;
-  font-family: 'EB Garamond', serif;
-  font-size: 0.9rem;
+    margin-right: 1vw;
+    font-family: "EB Garamond", serif;
+    font-size: 0.9rem;
 }
 
 .detailPage {
-  min-height: 95vh;
+    min-height: 95vh;
 }
 
 .detailPage > h1 {
-  text-align: center;
-  margin-bottom: 5vh;
-  font-size: 1.5rem;
-  margin-top: 3vh;
+    text-align: center;
+    margin-bottom: 5vh;
+    font-size: 1.5rem;
+    margin-top: 3vh;
 }
 
 .detailPage > div:nth-child(3) > div:nth-child(2) {
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 }
 
 .detailPage > div:nth-child(3) > div:nth-child(2) > div:nth-child(2) {
-  width: 45vw;
+    width: 45vw;
 }
 
-.detailPage > div:nth-child(3) > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.detailPage
+    > div:nth-child(3)
+    > div:nth-child(2)
+    > div:nth-child(2)
+    > div:nth-child(1) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .detailsPageContent {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-between;
-  // margin-bottom: 1vh;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    // margin-bottom: 1vh;
 }
 
 .detailsPageContent > div {
-  width: 45vw;
+    width: 45vw;
 }
 
 .detailsPageContent > div * {
-  margin-bottom: 1vh;
+    margin-bottom: 1vh;
 }
 
-.detailsPageContent > div:nth-child(1)  > h4 > b {
-  margin-right: 0.5vw;
+.detailsPageContent > div:nth-child(1) > h4 > b {
+    margin-right: 0.5vw;
 }
 
-.detailsPageContent > div:nth-child(1)  > h5 > b {
-  margin-right: 0.5vw;
+.detailsPageContent > div:nth-child(1) > h5 > b {
+    margin-right: 0.5vw;
 }
 
-.detailsPageContent > div:nth-child(1)  > h6 > b {
-  margin-right: 0.5vw;
+.detailsPageContent > div:nth-child(1) > h6 > b {
+    margin-right: 0.5vw;
 }
 
-.detailsPageContent  h3 {
-  margin: 0;
-  margin-bottom: 1vh;
+.detailsPageContent h3 {
+    margin: 0;
+    margin-bottom: 1vh;
 }
 
 .detailsPageContent img {
-  margin-bottom: 3vh;
+    margin-bottom: 3vh;
 }
 
 .castSection {
-  display: flex;
-  // justify-content: space-between;
-  align-items: baseline;
-  // flex-flow: column wrap;
-  flex-flow: row wrap;
-  // height: 46vh;
-  height: 17vh;
+    display: flex;
+    // justify-content: space-between;
+    align-items: baseline;
+    // flex-flow: column wrap;
+    flex-flow: row wrap;
+    // height: 46vh;
+    height: 17vh;
 }
 
 .castSection > div {
-  // width: 8vw;
-  width: 6vw;
-  height: 15vh;
-  display: flex;
-  // flex-direction: row;
-  flex-direction: column;
-  align-items: center;
+    // width: 8vw;
+    width: 6vw;
+    height: 15vh;
+    display: flex;
+    // flex-direction: row;
+    flex-direction: column;
+    align-items: center;
 }
 
 .castSection > div > a > img {
-  // height: 13vh;
-  height: 12vh;
-  width: 5.3vw;
-  margin-bottom: 1vh;
+    // height: 13vh;
+    height: 12vh;
+    width: 5.3vw;
+    margin-bottom: 1vh;
 }
 
 .castSection h6 {
-  // font-size: 0.9rem;
-  font-size: 0.6rem;
+    // font-size: 0.9rem;
+    font-size: 0.6rem;
 }
 
 .castAndCrew {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  height: 50vh;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 50vh;
 }
 
 .castAndCrew > div:nth-child(1) {
-  width: 32vw;
+    width: 32vw;
 }
 
 .castAndCrew > div:nth-child(2) {
-  width: 45vw;
+    width: 45vw;
 }
 
 .castAndCrew > div:nth-child(2) > div {
-  display: flex;
+    display: flex;
 }
 
 .castAndCrew > div:nth-child(2) > div > div:nth-child(1) {
-  // width: 17vw;
-  width: 10vw;
+    // width: 17vw;
+    width: 10vw;
 }
 
 .castAndCrew > div:nth-child(2) > div > div:nth-child(2) {
-  // width: 32vw;
-  width: 24vw;
+    // width: 32vw;
+    width: 24vw;
 }
 
 .brightLink {
-  // color: snow;
-  color: cadetblue;
+    // color: snow;
+    color: cadetblue;
 }
 
 .brightLink:hover {
-  color: #B5B5B5;
-  text-decoration: none;
+    color: #b5b5b5;
+    text-decoration: none;
 }
 
 .fullCastList {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-flow: row wrap;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-flow: row wrap;
 }
 
 .fullCastList > div {
-  width: 15vw;
-  height: 19vh;
-  display: flex;
-  align-items: center;
+    width: 15vw;
+    height: 19vh;
+    display: flex;
+    align-items: center;
 }
 
 .fullCastList > div > a > img {
-  height: 15vh;
-  width: 6vw;
-  margin-right: 0.5vw;
+    height: 15vh;
+    width: 6vw;
+    margin-right: 0.5vw;
 }
 
 .actorInfo {
-  display: flex;
-  // justify-content: space-between;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 3vh;
+    display: flex;
+    // justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 3vh;
 }
 
 .actorInfo > div {
-  width: 40vw;
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: column;
-  align-items: flex-start;
+    width: 40vw;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .actorInfo > div:nth-child(1) {
-  flex-direction: row;
-  align-items: center;
+    flex-direction: row;
+    align-items: center;
 }
 
 .actorInfo > div:nth-child(1) > div {
-  display: flex;
-  flex-direction: column;
-  height: 20vh;
-  justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    height: 20vh;
+    justify-content: space-between;
 }
 
 .actorInfo > div:nth-child(1) > div b {
-  margin-right: 0.5vw;
+    margin-right: 0.5vw;
 }
 
 .actorInfo > div > img {
-  height: 35vh;
-  margin-right: 1vh;
+    height: 35vh;
+    margin-right: 1vh;
 }
 
 .bio {
-  max-height: 32vh;
-  min-height: 32vh;
-  overflow: scroll;
+    max-height: 32vh;
+    min-height: 32vh;
+    // overflow: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .bio > h5 {
-  // font-family: 'Lato', sans-serif;
-  font-family: 'EB Garamond', serif;
-  font-size: 1rem;
+    // font-family: 'Lato', sans-serif;
+    font-family: "EB Garamond", serif;
+    font-size: 1rem;
 }
 
 .userAvatar {
-  width: 2vw;
-  // background-color: white;
-  background-color: black;
-  // margin-right: 1vw;
+    width: 2vw;
+    // background-color: white;
+    background-color: black;
+    // margin-right: 1vw;
 }
 
 .watchlistCreateForm > form {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: flex-end;
-  padding: 0 20vw;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-end;
+    padding: 0 20vw;
 }
 
 .watchlistCreateForm div {
@@ -628,392 +662,401 @@ a .pageTitle:hover {
 }
 
 .formRadioSelect h5 {
-  padding-top: 0.8vh;
-  margin: 0;
+    padding-top: 0.8vh;
+    margin: 0;
 }
 
 .formRadioSelect > div {
-  display: flex;
-  justify-content: space-evenly;
-  font-weight: bold;
-  align-items: center;
-  color: ghostWhite;
+    display: flex;
+    justify-content: space-evenly;
+    font-weight: bold;
+    align-items: center;
+    color: ghostWhite;
 }
 
 .dropleft > a:nth-child(2)::before {
-  display: none;
+    display: none;
 }
 
 .dropleft > div {
-  margin: 0;
+    margin: 0;
 }
 
 .addToFaveButton > div {
-  top: 22px !important;
-  left: -50px !important;
+    top: 22px !important;
+    left: -50px !important;
 }
 
 .dropleft:hover > .playlistSubmenu {
-  display: block;
+    display: block;
 }
 
 .dropleft > .playlistSubmenuButton:active {
-  pointer-events: none;
+    pointer-events: none;
 }
 
 .playlistBody {
-  display: flex;
-  flex-direction: row-reverse;
+    display: flex;
+    flex-direction: row-reverse;
 }
 
 .playlistListPage {
-  margin-bottom: 5vh;
-  height: 14vh;
+    margin-bottom: 5vh;
+    height: 14vh;
 }
 
 .userPlaylist {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  margin-bottom: 4vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 4vh;
 }
 
 .userPlaylist > div {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .playlistCard {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  width: 20vw;
-  margin-bottom: 3vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    width: 20vw;
+    margin-bottom: 3vh;
 }
 
 .playlistCard a {
-  color: black;
-  text-decoration: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    color: black;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .playlistCard a:hover {
-  text-decoration: none;
-  color: lightgray;
+    text-decoration: none;
+    color: lightgray;
 }
 
 .playlistMovieList {
-  display: flex;
-  align-items: center;
-  flex-flow: row wrap;
-  overflow: scroll;
-  height: 78vh;
-  border-radius: 1%;
-  width: 53vw;
+    display: flex;
+    align-items: center;
+    flex-flow: row wrap;
+    // overflow: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 78vh;
+    border-radius: 1%;
+    width: 53vw;
 }
 
 .playlistMovieCard > a > img {
-  margin-bottom: 1vh;
-  height: 23vh;
+    margin-bottom: 1vh;
+    height: 23vh;
 }
 
 .playlistMovieList h5 {
-  font-size: 0.7rem;
+    font-size: 0.7rem;
 }
 
 .playlistMovieList > .playlistMovieCard {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: 9vw;
-  height: 32vh;
-  text-align: center;
-  border-radius: 10%;
-  margin-right: 0.45vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 9vw;
+    height: 32vh;
+    text-align: center;
+    border-radius: 10%;
+    margin-right: 0.45vw;
 }
 
 .playlistDescriptionsAndComments {
-  // display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  height: 17vh;
-  width: 99%;
-  margin-bottom: 1.3vh;
+    // display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    height: 17vh;
+    width: 99%;
+    margin-bottom: 1.3vh;
 }
 
 .playlistDescriptionsAndComments > div:nth-child(1) {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .playlistDescriptionsAndComments > div:nth-child(1) > h3 {
-  margin-bottom: 2vh;
+    margin-bottom: 2vh;
 }
 
 .playlistDescriptionsAndComments > div:nth-child(2) > div:nth-child(1) {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  // flex-direction: column;
-  margin-bottom: 2vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // flex-direction: column;
+    margin-bottom: 2vh;
 }
 
 .playlistDescriptionsAndComments > div:nth-child(2) > div:nth-child(1) > a {
-  padding: 0;
+    padding: 0;
 }
 
-.playlistDescriptionsAndComments > div:nth-child(2) > div:nth-child(1) > a:hover {
-  color: ghostWhite;
+.playlistDescriptionsAndComments
+    > div:nth-child(2)
+    > div:nth-child(1)
+    > a:hover {
+    color: ghostWhite;
 }
 
 .playlistDescriptionsAndComments > div:nth-child(1) > div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .playlistDescriptionsAndComments > div:nth-child(1) > div > h5 {
-  width: 15vw;
+    width: 15vw;
 }
 
 .playlistDescriptionsAndComments > div:nth-child(1) > div > div {
-  // max-height: 12vh;
-  min-height: 4vh;
-  overflow: scroll;
+    // max-height: 12vh;
+    min-height: 4vh;
+    // overflow: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .playlistDescriptionsAndComments > div:nth-child(2) {
-  width: 38vw;
-  border-radius: 10%;
-
+    width: 38vw;
+    border-radius: 10%;
 }
 
 .playlistDescription {
-  display: flex;
-  // justify-content: center;
-  width: 40vw;
-  // max-height: 14vh;
-  min-height: 10vh;
-  // overflow: scroll;
-  margin: 0;
+    display: flex;
+    // justify-content: center;
+    width: 40vw;
+    // max-height: 14vh;
+    min-height: 10vh;
+    // overflow: scroll;
+    margin: 0;
 }
 
 .playlistComments {
-  // display: flex;
-  // justify-content: center;
-  // flex-direction: column;
-  // align-items: center;
-  width: 100%;
-  // max-height: 16vh;
-  // min-height: 16vh;
-  height: 55vh;
-  overflow: scroll;
-  // overflow-y: scroll;
-  // padding-top: 4vh;
-  border-radius: 1%;
+    // display: flex;
+    // justify-content: center;
+    // flex-direction: column;
+    // align-items: center;
+    width: 100%;
+    // max-height: 16vh;
+    // min-height: 16vh;
+    height: 55vh;
+    // overflow: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
+    // overflow-y: scroll;
+    // padding-top: 4vh;
+    border-radius: 1%;
 }
 
 .playlistComments a.nav-link:hover {
-  color: #B5B5B5;
-  text-decoration: none;
-  // border: 0.5px solid #949494;
+    color: #b5b5b5;
+    text-decoration: none;
+    // border: 0.5px solid #949494;
 }
 
 .playlistCommentForm {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  // background-color: #B5B5B5;
-  // color: ghostwhite;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    // background-color: #B5B5B5;
+    // color: ghostwhite;
 }
 
 .playlistCommentForm div {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: row;
-  width: 30vw;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    width: 30vw;
 }
 
 .playlistCommentForm div label {
-  margin-right: 1vw;
+    margin-right: 1vw;
 }
 
 .playlistRemoveMovieForm {
-  position: relative;
-  top: 3.5vh;
-  left: 3vw;
+    position: relative;
+    top: 3.5vh;
+    left: 3vw;
 }
 
 .playlistRemoveMovieForm > button {
-  background-color: maroon;
-  border-radius: 10%;
+    background-color: maroon;
+    border-radius: 10%;
 }
 
 .playlistRemoveMovieForm > button:hover {
-  background-color: #B5B5B5;
+    background-color: #b5b5b5;
 }
 
 .playlistRemoveCommentForm > button {
-  position: relative;
-  bottom: 0.8vh;
-  left: 0.55vw;
-  background-color: maroon;
+    position: relative;
+    bottom: 0.8vh;
+    left: 0.55vw;
+    background-color: maroon;
 }
 
 .playlistRemoveCommentForm > button:hover {
-  background-color: #B5B5B5;
+    background-color: #b5b5b5;
 }
 
 .commentModal {
-  background-color: rgba(55, 55, 55, 0.5);
-  color: ghostwhite;
+    background-color: rgba(55, 55, 55, 0.5);
+    color: ghostwhite;
 }
 
 .commentCard {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid #949494;
-  width: 100%;
-  margin-bottom: 1vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #949494;
+    width: 100%;
+    margin-bottom: 1vh;
 }
 
 .commentCard > div:nth-child(1) {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5vh 0.5vw;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5vh 0.5vw;
 }
 
 .commentCard > div:nth-child(1) > div:nth-child(1) {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .commentCard > div:nth-child(1) > div:nth-child(2) {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .commentCard > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-right: 1vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 1vw;
 }
 
 .commentCard > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > img {
-  width: 1.7vw;
-  background-color: white;
-  margin-right: 1vw;
-  position: relative;
-  bottom: 0.5vh
+    width: 1.7vw;
+    background-color: white;
+    margin-right: 1vw;
+    position: relative;
+    bottom: 0.5vh;
 }
 
 .playlistComments > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .commentDropdown {
-  width: 2.6vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    width: 2.6vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .commentDropdown > a {
-  position: relative;
-  left: 1.4vw;
-  width: fit-content;
-  padding: 0;
+    position: relative;
+    left: 1.4vw;
+    width: fit-content;
+    padding: 0;
 }
 
 .commentDropdown > a > img {
-  width: 2vw;
+    width: 2vw;
 }
 
 .commentDropdownMenu {
-  top: -7px !important;
-  left: -25px !important;
+    top: -7px !important;
+    left: -25px !important;
 }
 
 .commentDropdownMenu > a {
-  text-align: center;
-  font-size: 0.8vw;
+    text-align: center;
+    font-size: 0.8vw;
 }
 
 .commentDropdownMenu > form > button {
-  text-align: center;
-  font-size: 0.8vw;
+    text-align: center;
+    font-size: 0.8vw;
 }
 
 .commentEdit {
-  margin-right: 1vw;
+    margin-right: 1vw;
 }
 
 .commentEdit > button {
-  color: #5B5B5B;
-  background-color: transparent;
-  border: none;
+    color: #5b5b5b;
+    background-color: transparent;
+    border: none;
 }
 
 .commentEdit > button:hover {
-  color: ghostWhite;
+    color: ghostWhite;
 }
 
 .commentCard > div:nth-child(2) {
-  border: 0.1px solid rgba(15, 15, 15, 0.3);
-  width: 100%;
-  padding: 0.5vh 0.5vw;
+    border: 0.1px solid rgba(15, 15, 15, 0.3);
+    width: 100%;
+    padding: 0.5vh 0.5vw;
 }
 
-.commentCard h4, h5 {
-  margin-bottom: 0.2vh;
+.commentCard h4,
+h5 {
+    margin-bottom: 0.2vh;
 }
 
 .deletePlaylist button {
-  font-size: 0.8rem;
-  border-radius: 9px;
+    font-size: 0.8rem;
+    border-radius: 9px;
 }
 
 .custom-switch > label {
-  color: ghostWhite;
+    color: ghostWhite;
 }
 
 .requiredSpan {
-  color: red;
+    color: red;
 }
 
 .errorMessage {
-  // background: #F02B63;
-  // box-sizing: border-box;
-  // color: #fff;
-  margin: 20px auto;
-  padding: 20px;
-  // width: 20vw;
-  text-align: center;
-  color: maroon;
+    // background: #F02B63;
+    // box-sizing: border-box;
+    // color: #fff;
+    margin: 20px auto;
+    padding: 20px;
+    // width: 20vw;
+    text-align: center;
+    color: maroon;
 }
 
 .userProfileUpdateForm {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 .userProfileUpdateForm img {
-  width: 10vw;
+    width: 10vw;
 }
